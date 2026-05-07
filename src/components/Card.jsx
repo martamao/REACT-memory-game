@@ -1,4 +1,4 @@
-export default function Card(id, name) {
+export default function Card(id, value) {
   return (
     <div className="table">
       <div className="card">?</div>

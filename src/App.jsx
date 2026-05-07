@@ -19,8 +19,7 @@ export default function App() {
   });
 
   const handleClick = (ev) => {
-    const cardClicked = ev.target.value;
-    setCard[cardClicked];
+    setCard(ev.target.id);
   };
 
   return (
@@ -32,7 +31,7 @@ export default function App() {
             onClick={handleClick}
             key={card.id}
             id={card.id}
-            value={card.value}></Card>
+            value={setCard}></Card>
         ))}
       </div>
     </main>
