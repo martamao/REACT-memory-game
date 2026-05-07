@@ -1,5 +1,6 @@
 import "./App.scss";
 import { useState } from "react";
+import Card from "./components/Card";
 
 export default function App() {
   const emojis = ["🎈", "🎨", "🎯", "🎪", "🎭", "🎸", "🎺", "🎮"];
@@ -10,13 +11,12 @@ export default function App() {
       value: emoji,
     };
   });
+  const suffledCards = emojiObj.sort(() => Math.random() - 0.5);
 
   const [card, setCard] = useState({
     id: "",
     value: "",
   });
-  const suffledCards = emojiObj.sort(() => Math.random() - 0.5);
-  suffledCards.map((card) => <li key={card.id}>{card.value}</li>);
 
   const handleClick = (ev) => {
     const cardClicked = ev.target.value;
@@ -24,15 +24,17 @@ export default function App() {
   };
 
   return (
-    <body>
+    <main>
       <h1>Memory Game</h1>
-      <main>
-        <div className="table">
-          {suffledCards.map((card) => (
-            <Card key="" id={card.id} value={card.value}></Card>
-          ))}
-        </div>
-      </main>
-    </body>
+      <div className="table">
+        {suffledCards.map((card) => (
+          <Card
+            onClick={handleClick}
+            key={card.id}
+            id={card.id}
+            value={card.value}></Card>
+        ))}
+      </div>
+    </main>
   );
 }
