@@ -1,7 +1,12 @@
-export default function Card(id, value) {
+export default function Card({ id, value, onCardClick, backCard }) {
   return (
-    <div className="table">
-      <div className="card">?</div>
-    </div>
+    <>
+      <li
+        onClick={() => onCardClick({ id, value })}
+        className={`card ${backCard ? "backcard" : ""}`}>
+        <div className="front">❓</div>
+        <div className="back">{value}</div>
+      </li>
+    </>
   );
 }

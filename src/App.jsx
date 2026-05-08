@@ -4,34 +4,49 @@ import Card from "./components/Card";
 
 export default function App() {
   const emojis = ["🎈", "🎨", "🎯", "🎪", "🎭", "🎸", "🎺", "🎮"];
-  const emojisDuplicate = [...emojis, ...emojis];
-  const emojiObj = emojisDuplicate.map((emoji, index) => {
-    return {
+
+  const [cards, setCards] = useState(() => {
+    const emojisDuplicate = [...emojis, ...emojis];
+
+    const emojiObj = emojisDuplicate.map((emoji, index) => ({
       id: index,
       value: emoji,
-    };
-  });
-  const suffledCards = emojiObj.sort(() => Math.random() - 0.5);
-
-  const [card, setCard] = useState({
-    id: "",
-    value: "",
+    }));
+    return emojiObj.sort(() => Math.random() - 0.5);
   });
 
-  const handleClick = (ev) => {
-    setCard(ev.target.id);
+  const [cardSelected, setCardSelected] = useState();
+  const handleClickedCard = (cardData) => {
+    setCardSelected(cardData);
+  };
+
+  const [backCard, setBackCard] = useState(false);
+  const handleCardMove = () => {
+    const arr = [];
+    arr.push(ev.target.value);
+    for (const item of arr) {
+      setBackCard(true);
+    }
+  };
+  const shuffleCards = () => {
+    {
+      /**Para reiniciar */
+    }
+    const shuffled = [...cards].sort(() => Math.random() - 0.5);
+    setCards(shuffled);
   };
 
   return (
     <main>
       <h1>Memory Game</h1>
       <div className="table">
-        {suffledCards.map((card) => (
+        {cards.map((card) => (
           <Card
-            onClick={handleClick}
+            onCardClick={handleClickedCard}
             key={card.id}
             id={card.id}
-            value={setCard}></Card>
+            value={card.value}
+            backCard={handleCardMove}></Card>
         ))}
       </div>
     </main>
