@@ -20,14 +20,8 @@ export default function App() {
     setCardSelected(cardData);
   };
 
-  const [backCard, setBackCard] = useState(false);
-  const handleCardMove = () => {
-    const arr = [];
-    arr.push(ev.target.value);
-    for (const item of arr) {
-      setBackCard(true);
-    }
-  };
+  const [backCard, setBackCard] = useState(null);
+
   const shuffleCards = () => {
     {
       /**Para reiniciar */
@@ -46,7 +40,8 @@ export default function App() {
             key={card.id}
             id={card.id}
             value={card.value}
-            backCard={handleCardMove}></Card>
+            backCard={backCard}
+            setBackCard={setBackCard}></Card>
         ))}
       </div>
     </main>
