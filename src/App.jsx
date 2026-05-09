@@ -1,6 +1,7 @@
 import "./App.scss";
 import { useState } from "react";
 import Card from "./components/Card";
+import { useEffect } from "react";
 
 export default function App() {
   const emojis = ["🎈", "🎨", "🎯", "🎪", "🎭", "🎸", "🎺", "🎮"];
@@ -21,14 +22,15 @@ export default function App() {
   };
 
   const [backCard, setBackCard] = useState([]);
+  const [matchedCards, setMatchedCards] = useState([]);
 
-  const shuffleCards = () => {
-    {
-      /**Para reiniciar */
+  useEffect(() => {
+    if (backCard.length === 2) {
+      if (backCard[0].value === backCard[1].value) {
+        setMatchedCards((prev) => [...prev, backCard[0], backCard[1]]);
+      }
     }
-    const shuffled = [...cards].sort(() => Math.random() - 0.5);
-    setCards(shuffled);
-  };
+  }, [backCard]);
 
   return (
     <main>
@@ -41,7 +43,8 @@ export default function App() {
             id={card.id}
             value={card.value}
             backCard={backCard}
-            setBackCard={setBackCard}></Card>
+            setBackCard={setBackCard}
+            matchedCards={matchedCards}></Card>
         ))}
       </div>
     </main>

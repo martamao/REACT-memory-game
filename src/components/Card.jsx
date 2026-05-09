@@ -4,20 +4,25 @@ export default function Card({
   onCardClick,
   backCard,
   setBackCard,
+  matchedCards,
 }) {
+  const isVisible =
+    backCard.some((card) => card.id === id) ||
+    matchedCards.some((card) => card.id === id);
+
   return (
     <>
       <li
         onClick={() => {
           onCardClick({ id, value });
-          setBackCard((prev) => {
-            if (prev.length === 2) {
+          setBackCard((card) => {
+            if (card.length === 2) {
               return [{ id, value }];
             }
-            return [...prev, { id, value }];
+            return [...card, { id, value }];
           });
         }}
-        className={`card ${backCard.some((card) => card.id === id) ? "backCard" : ""}`}>
+        className={`card ${isVisible ? "backCard" : ""}`}>
         <div className="front">❓</div>
         <div className="back">{value}</div>
       </li>
