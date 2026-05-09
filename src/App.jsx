@@ -20,7 +20,7 @@ export default function App() {
     setCardSelected(cardData);
   };
 
-  const [backCard, setBackCard] = useState(null);
+  const [backCard, setBackCard] = useState([]);
 
   const shuffleCards = () => {
     {
