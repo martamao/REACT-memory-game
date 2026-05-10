@@ -9,7 +9,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #f87e38 0%, #764ba2 60%, #33f49a 100%);
   min-height: 100vh;
 }
 .table {
@@ -22,7 +22,7 @@ body {
 }
 
 .card {
-  background-color: lightblue;
+  background-color: #e6add9;
   border: 2px solid #ffffff;
   border-radius: 10px;
   list-style: none;
@@ -35,6 +35,7 @@ body {
 .back {
   width: 100%;
   height: 100%;
+  font-size: 50px;
   position: absolute;
   display: flex;
   align-items: center;
@@ -49,6 +50,12 @@ body {
 }
 .itsAMatch {
   transform: rotateY(180deg);
-  background-color: #764ba2;
+  background-color: #e55ac4;
   cursor: default;
+}
+.result {
+  text-align: center;
+  font-size: 50px;
+  color: pink;
+  margin: 10px;
 }

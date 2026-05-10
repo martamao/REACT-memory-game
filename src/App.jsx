@@ -2,10 +2,13 @@ import "./App.scss";
 import { useState } from "react";
 import Card from "./components/Card";
 import { useEffect } from "react";
+import Button from "./components/Button";
+import Message from "./components/Message";
+import Counter from "./components/Counter";
 
 export default function App() {
-  const emojis = ["🎈", "🎨", "🎯", "🎪", "🎭", "🎸", "🎺", "🎮"];
-
+  const emojis = ["👽​​​", "🧟‍♀️", "👩🏻‍🚀", "🧑🏻‍💻", "🥷🏻​​", "🐒", "🦚", "🦭​"];
+​​​​​​​
   const [cards, setCards] = useState(() => {
     const emojisDuplicate = [...emojis, ...emojis];
 
@@ -17,8 +20,12 @@ export default function App() {
   });
 
   const [cardSelected, setCardSelected] = useState();
+   const [count, setCount] = useState(0)
+   const [points, setPoints] = useState()
+
   const handleClickedCard = (cardData) => {
     setCardSelected(cardData);
+   
   };
 
   const [backCard, setBackCard] = useState([]);
@@ -26,9 +33,11 @@ export default function App() {
 
   useEffect(() => {
     if (backCard.length === 2) {
+       setCount((click) => click + 1)
       setTimeout(() => {
         if (backCard[0].value === backCard[1].value) {
           setMatchedCards((card) => [...card, backCard[0], backCard[1]]);
+          
         } else {
           setBackCard((card) => []);
         }
@@ -36,9 +45,20 @@ export default function App() {
     }
   }, [backCard]);
 
+  const [result, setResult] = useState(false)
+
+  useEffect(() => {
+    if(matchedCards.length === cards.length){
+      setResult(true)
+    }
+  }, [matchedCards])
+
+
   return (
     <main>
       <h1>Memory Game</h1>
+      <Counter count={count}></Counter>
+      <Button></Button>
       <div className="table">
         {cards.map((card) => (
           <Card
@@ -48,10 +68,12 @@ export default function App() {
             value={card.value}
             backCard={backCard}
             setBackCard={setBackCard}
-            matchedCards={matchedCards}></Card>
+            matchedCards={matchedCards}
+            ></Card>
         ))}
       </div>
-      <button>Nueva partida</button>
+      <Message result={result}></Message>
+      <Button></Button>
     </main>
   );
 }
