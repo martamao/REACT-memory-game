@@ -6,9 +6,11 @@ export default function Card({
   setBackCard,
   matchedCards,
 }) {
-  const isVisible =
-    backCard.some((card) => card.id === id) ||
-    matchedCards.some((card) => card.id === id);
+  const clickedCard = backCard.some((card) => card.id === id);
+  const itsAMatch = matchedCards.some((card) => card.id === id);
+  const isVisible = clickedCard || itsAMatch;
+  if (itsAMatch) {
+  }
 
   return (
     <>
@@ -22,7 +24,7 @@ export default function Card({
             return [...card, { id, value }];
           });
         }}
-        className={`card ${isVisible ? "backCard" : ""}`}>
+        className={`card ${isVisible ? "backCard" : ""} ${itsAMatch ? "itsAMatch" : ""}`}>
         <div className="front">❓</div>
         <div className="back">{value}</div>
       </li>

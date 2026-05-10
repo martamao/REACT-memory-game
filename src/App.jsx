@@ -26,9 +26,13 @@ export default function App() {
 
   useEffect(() => {
     if (backCard.length === 2) {
-      if (backCard[0].value === backCard[1].value) {
-        setMatchedCards((prev) => [...prev, backCard[0], backCard[1]]);
-      }
+      setTimeout(() => {
+        if (backCard[0].value === backCard[1].value) {
+          setMatchedCards((card) => [...card, backCard[0], backCard[1]]);
+        } else {
+          setBackCard((card) => []);
+        }
+      }, 1000);
     }
   }, [backCard]);
 
@@ -47,6 +51,7 @@ export default function App() {
             matchedCards={matchedCards}></Card>
         ))}
       </div>
+      <button>Nueva partida</button>
     </main>
   );
 }
