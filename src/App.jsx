@@ -8,7 +8,13 @@ import Counter from "./components/Counter";
 
 export default function App() {
   const emojis = ["👽​​​", "🧟‍♀️", "👩🏻‍🚀", "🧑🏻‍💻", "🥷🏻​​", "🐒", "🦚", "🦭​"];
-​​​​​​​
+​​​​​​​  const [cardSelected, setCardSelected] = useState();
+  const [backCard, setBackCard] = useState([]);
+  const [matchedCards, setMatchedCards] = useState([]);
+  const [count, setCount] = useState(0)
+  const [points, setPoints] = useState(0)
+  const [result, setResult] = useState(false)
+  const [activeBtn, setActiveBtn]= useState();
   const [cards, setCards] = useState(() => {
     const emojisDuplicate = [...emojis, ...emojis];
 
@@ -19,17 +25,14 @@ export default function App() {
     return emojiObj.sort(() => Math.random() - 0.5);
   });
 
-  const [cardSelected, setCardSelected] = useState();
-   const [count, setCount] = useState(0)
-   const [points, setPoints] = useState()
-
   const handleClickedCard = (cardData) => {
     setCardSelected(cardData);
    
   };
 
-  const [backCard, setBackCard] = useState([]);
-  const [matchedCards, setMatchedCards] = useState([]);
+  const handleBtn = () => {
+
+  }
 
   useEffect(() => {
     if (backCard.length === 2) {
@@ -37,15 +40,13 @@ export default function App() {
       setTimeout(() => {
         if (backCard[0].value === backCard[1].value) {
           setMatchedCards((card) => [...card, backCard[0], backCard[1]]);
-          
+            setPoints((point) => point + 1)
         } else {
           setBackCard((card) => []);
         }
       }, 1000);
     }
   }, [backCard]);
-
-  const [result, setResult] = useState(false)
 
   useEffect(() => {
     if(matchedCards.length === cards.length){
@@ -57,8 +58,8 @@ export default function App() {
   return (
     <main>
       <h1>Memory Game</h1>
-      <Counter count={count}></Counter>
-      <Button></Button>
+      <Counter count={count} points={points}></Counter>
+      <Button onBtnClick={handleBtn}></Button>
       <div className="table">
         {cards.map((card) => (
           <Card

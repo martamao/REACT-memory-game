@@ -12,13 +12,18 @@ body {
   background: linear-gradient(135deg, #f87e38 0%, #764ba2 60%, #33f49a 100%);
   min-height: 100vh;
 }
+h1 {
+  text-align: center;
+  margin: 20px;
+  color: #33f49a;
+}
 .table {
   display: grid;
   grid-template-columns: repeat(4, 100px);
   grid-template-rows: repeat(4, 100px);
   gap: 10px;
   justify-content: center;
-  margin-top: 50px;
+  margin-top: 20px;
 }
 
 .card {
@@ -58,4 +63,13 @@ body {
   font-size: 50px;
   color: pink;
   margin: 10px;
+}
+.counterSection {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  justify-content: center;
+  color: #f87e38;
+  font-size: 20px;
+  font-weight: 500;
 }

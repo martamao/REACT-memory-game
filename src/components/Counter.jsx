@@ -1,8 +1,8 @@
-export default function Counter({ count }) {
+export default function Counter({ count, points }) {
   return (
-    <div>
+    <div class="counterSection">
       <p>Moves: {count}</p>
-      <p>Points</p>
+      <p>Points: {points}</p>
     </div>
   );
 }

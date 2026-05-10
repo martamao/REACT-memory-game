@@ -25,7 +25,7 @@ export default function Card({
           });
         }}
         className={`card ${isVisible ? "backCard" : ""} ${itsAMatch ? "itsAMatch" : ""}`}>
-        <div className="front">❓</div>
+        <div className="front">​👀</div>
         <div className="back">{value}</div>
       </li>
     </>
