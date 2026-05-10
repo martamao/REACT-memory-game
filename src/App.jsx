@@ -7,7 +7,17 @@ import Message from "./components/Message";
 import Counter from "./components/Counter";
 
 export default function App() {
-  const emojis = ["👽​​​", "🧟‍♀️", "👩🏻‍🚀", "🧑🏻‍💻", "🥷🏻​​", "🐒", "🦚", "🦭​"];
+  const cardArray = ["👽​​​", "🧟‍♀️", "👩🏻‍🚀", "🧑🏻‍💻", "🥷🏻​​", "🐒", "🦚", "🦭​"];
+  const [cards, setCards] = useState(() => {
+    const cardArrayDuplicate = [...cardArray, ...cardArray];
+
+    const cardArrayObj = cardArrayDuplicate.map((oneCard, index) => ({
+      id: index,
+      value: oneCard,
+    }));
+    return cardArrayObj.sort(() => Math.random() - 0.5);
+  });
+  
 ​​​​​​​  const [cardSelected, setCardSelected] = useState();
   const [backCard, setBackCard] = useState([]);
   const [matchedCards, setMatchedCards] = useState([]);
@@ -15,23 +25,15 @@ export default function App() {
   const [points, setPoints] = useState(0)
   const [result, setResult] = useState(false)
   const [activeBtn, setActiveBtn]= useState();
-  const [cards, setCards] = useState(() => {
-    const emojisDuplicate = [...emojis, ...emojis];
-
-    const emojiObj = emojisDuplicate.map((emoji, index) => ({
-      id: index,
-      value: emoji,
-    }));
-    return emojiObj.sort(() => Math.random() - 0.5);
-  });
 
   const handleClickedCard = (cardData) => {
     setCardSelected(cardData);
    
   };
 
-  const handleBtn = () => {
-
+  const handleResetBtn = () => {
+    setCount(count)
+    setPoints(points)
   }
 
   useEffect(() => {
@@ -59,7 +61,6 @@ export default function App() {
     <main>
       <h1>Memory Game</h1>
       <Counter count={count} points={points}></Counter>
-      <Button onBtnClick={handleBtn}></Button>
       <div className="table">
         {cards.map((card) => (
           <Card
@@ -74,7 +75,7 @@ export default function App() {
         ))}
       </div>
       <Message result={result}></Message>
-      <Button></Button>
+      <Button onResetBtnClick={handleResetBtn}></Button>
     </main>
   );
 }

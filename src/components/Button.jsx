@@ -1,7 +1,7 @@
-export default function Button() {
-  const playBtn = "Lets's play!";
-  const resetBtn = "Wanna try again?";
-  return;
-
-  <button></button>;
+export default function Button(onResetBtnClick) {
+  return (
+    <button onClick={onResetBtnClick}>
+      <p>Reiniciar</p>
+    </button>
+  );
 }
