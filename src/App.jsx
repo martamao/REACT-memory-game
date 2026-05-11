@@ -24,18 +24,23 @@ export default function App() {
   const [count, setCount] = useState(0)
   const [points, setPoints] = useState(0)
   const [result, setResult] = useState(false)
-  const [activeBtn, setActiveBtn]= useState();
-
+  const [startBtn, setStartBtn] = useState(true)
+ 
   const handleClickedCard = (cardData) => {
     setCardSelected(cardData);
-   
   };
 
   const handleResetBtn = () => {
-    setCount(count)
-    setPoints(points)
+    setCount(0)
+    setPoints(0)
+    setCardSelected({id:"", value:""})
+    setBackCard([])
+    setMatchedCards([])
   }
 
+const handleStartBtn = () => {
+  setStartBtn(false)
+}
   useEffect(() => {
     if (backCard.length === 2) {
        setCount((click) => click + 1)
@@ -56,10 +61,10 @@ export default function App() {
     }
   }, [matchedCards])
 
-
   return (
     <main>
       <h1>Memory Game</h1>
+      <Button text="Start Game" btnName="startBtn" onBtnClick={handleStartBtn}></Button>
       <Counter count={count} points={points}></Counter>
       <div className="table">
         {cards.map((card) => (
@@ -75,7 +80,7 @@ export default function App() {
         ))}
       </div>
       <Message result={result}></Message>
-      <Button onResetBtnClick={handleResetBtn}></Button>
+      <Button onBtnClick={handleResetBtn} text="Reset" btnName="resetBtn"></Button>
     </main>
   );
 }

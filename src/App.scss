@@ -11,11 +11,17 @@ body {
   align-items: center;
   background: linear-gradient(135deg, #f87e38 0%, #764ba2 60%, #33f49a 100%);
   min-height: 100vh;
+  font-family: "Crafty Girls", cursive;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 20px;
 }
 h1 {
   text-align: center;
   margin: 20px;
-  color: #33f49a;
+  color: black;
+  //-webkit-text-stroke: 0.2rem #33f49a;
 }
 .table {
   display: grid;
@@ -24,6 +30,7 @@ h1 {
   gap: 10px;
   justify-content: center;
   margin-top: 20px;
+  margin-bottom: 10px;
 }
 
 .card {
@@ -67,9 +74,28 @@ h1 {
 .counterSection {
   display: flex;
   flex-direction: row;
-  gap: 20px;
+  gap: 100px;
   justify-content: center;
-  color: #f87e38;
+  color: black;
   font-size: 20px;
   font-weight: 500;
+}
+.btn {
+  display: block;
+  margin: 0 auto;
+  padding: 1rem;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #f87e38 0%, #764ba2 60%, #33f49a 100%);
+  color: black;
+  border: 1px solid white;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.btn:hover {
+  background: linear-gradient(
+    135deg,
+    #33f49a5e 0%,
+    #764ba2a5 60%,
+    #f87e38b3 100%
+  );
 }
