@@ -9,8 +9,6 @@ export default function Card({
   const clickedCard = backCard.some((card) => card.id === id);
   const itsAMatch = matchedCards.some((card) => card.id === id);
   const isVisible = clickedCard || itsAMatch;
-  if (itsAMatch) {
-  }
 
   return (
     <>

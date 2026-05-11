@@ -8,15 +8,15 @@ import Counter from "./components/Counter";
 
 export default function App() {
   const cardArray = ["👽​​​", "🧟‍♀️", "👩🏻‍🚀", "🧑🏻‍💻", "🥷🏻​​", "🐒", "🦚", "🦭​"];
-  const [cards, setCards] = useState(() => {
+  const [cards, setCards] = useState(() => {  
+   
     const cardArrayDuplicate = [...cardArray, ...cardArray];
-
     const cardArrayObj = cardArrayDuplicate.map((oneCard, index) => ({
       id: index,
       value: oneCard,
     }));
     return cardArrayObj.sort(() => Math.random() - 0.5);
-  });
+  })
   
 ​​​​​​​  const [cardSelected, setCardSelected] = useState();
   const [backCard, setBackCard] = useState([]);
@@ -24,22 +24,26 @@ export default function App() {
   const [count, setCount] = useState(0)
   const [points, setPoints] = useState(0)
   const [result, setResult] = useState(false)
-  const [startBtn, setStartBtn] = useState(true)
+  const [resetGame, setResetGame] = useState()
+  const [startGame, setStartGame] = useState("start")
  
   const handleClickedCard = (cardData) => {
     setCardSelected(cardData);
   };
 
   const handleResetBtn = () => {
+    setResetGame()
+    {/**Cambiar de estado a cards para volver a mezclar??? */}
     setCount(0)
     setPoints(0)
     setCardSelected({id:"", value:""})
     setBackCard([])
     setMatchedCards([])
+   {/**setCards([]) ????*/}
   }
 
-const handleStartBtn = () => {
-  setStartBtn(false)
+const showGame = () => {
+  setStartGame("game")
 }
   useEffect(() => {
     if (backCard.length === 2) {
@@ -64,7 +68,8 @@ const handleStartBtn = () => {
   return (
     <main>
       <h1>Memory Game</h1>
-      <Button text="Start Game" btnName="startBtn" onBtnClick={handleStartBtn}></Button>
+      
+      {startGame === "start" ? (<Button text="Start Game" btnName="startBtn" showGame={showGame}></Button>) : <div>Juego</div>}
       <Counter count={count} points={points}></Counter>
       <div className="table">
         {cards.map((card) => (
