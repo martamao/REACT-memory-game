@@ -17,6 +17,13 @@ body {
   font-style: normal;
   font-size: 20px;
 }
+.startPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 2rem;
+  gap: 1rem;
+}
 h1 {
   text-align: center;
   font-size: 50px;
@@ -68,9 +75,9 @@ h1 {
 }
 .result {
   text-align: center;
-  font-size: 50px;
+  font-size: 30px;
   color: #f87e38;
-  -webkit-text-stroke: 1px black;
+  -webkit-text-stroke: 0.8px black;
   margin: 10px;
 }
 .counterSection {
@@ -82,6 +89,7 @@ h1 {
   font-size: 20px;
   font-weight: 500;
 }
+/*
 .btn {
   display: block;
   margin: 0.5rem auto;
@@ -89,7 +97,7 @@ h1 {
   border-radius: 10px;
   background: linear-gradient(135deg, #f87e38 0%, #764ba2 60%, #33f49a 100%);
   color: black;
-  border: 1px solid white;
+  //border: 1px solid white;
   font-size: 1rem;
   cursor: pointer;
 }
@@ -100,6 +108,83 @@ h1 {
     #764ba2a5 60%,
     #f87e38b3 100%
   );
+}
+  https://dev.to/webdeasy/top-20-css-buttons-animations-f41
+ */
+
+.btn {
+  width: 220px;
+  height: 50px;
+  border: none;
+  outline: none;
+  color: black;
+  background: #111;
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+  border-radius: 10px;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  font-size: 20px;
+}
+
+.btn:before {
+  content: "";
+  background: linear-gradient(
+    45deg,
+    #fa4a4a,
+    #f5903e,
+    #fffb00,
+    #7be751,
+    #71ecd8,
+    #5b74f4,
+    #a95dfb,
+    #ef5ccf,
+    #fa4a4a
+  );
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  background-size: 400%;
+  z-index: -1;
+  filter: blur(5px);
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  animation: glowing 20s linear infinite;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  border-radius: 10px;
+}
+
+.btn:active:after {
+  background: transparent;
+}
+
+.btn:hover:before {
+  opacity: 1;
+}
+
+.btn:after {
+  z-index: -1;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(-135deg, #f87e38 0%, #764ba2 60%, #33f49a 100%);
+  left: 0;
+  top: 0;
+  border-radius: 10px;
+}
+
+@keyframes glowing {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
 }
 .introQ {
   color: black;

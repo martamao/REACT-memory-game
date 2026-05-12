@@ -68,7 +68,7 @@ export default function App() {
   return (
     <main>
       <h1>Memory Game</h1>
-      {startGame === "start" ? (<><p className="introQ">Can you find all the pairs in less than 16 moves?</p><Button text="Start Game" btnName="startBtn" onBtnClick={showGame}></Button></>) 
+      {startGame === "start" ? (<div className="startPage"><p className="introQ">Can you find all the pairs in less than 16 moves?</p><Button text="Let's find out!" btnName="startBtn" onBtnClick={showGame}></Button></div>) 
       : (<>
         <Counter count={count} points={points}></Counter>
         <div className="table">
@@ -84,9 +84,10 @@ export default function App() {
               ></Card>
           ))}
         </div>
-        <Message result={result} count={count} points={points}></Message>
-        <Button onBtnClick={handleResetBtn} text="Reset" btnName="resetBtn"></Button>
-      </>)}
+        </>)}
+        {result === true ? (
+          <><Message result={result} count={count} points={points}></Message>
+          <Button onBtnClick={handleResetBtn} text="Reset game" btnName="resetBtn"></Button></>) : ""}
     </main>
   );
 }
