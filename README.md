@@ -2,7 +2,7 @@
 
 Este es mi primer proyecto utilizando **React**, desarrollado con **Vite** y estilos en **SASS**.  
 Se trata de un juego clásico de encontrar parejas de cartas en un tablero de 4x4.
-
+Si quieres acceder al proyecto: https://idontwanttobeanurseanymore.github.io/react-memory-game/
 El proyecto ha sido realizado siguiendo unas instrucciones y una maquetación inicial proporcionadas por **Adalab**, como parte del contenido del Módulo 3 del bootcamp en Desarrollo Web Full Stack.
 
 ---
@@ -52,6 +52,15 @@ Dentro de `/components` se encuentran los componentes reutilizables del proyecto
 
 ---
 
+## ⚡ Instalación
+
+1. Clona el repositorio
+2. Instala las dependencias: `npm install`
+3. Arranca el proyecto en desarrollo: `npm run dev`
+   * Para generar una versión para producción: `npm run build`
+   * Para previsualizar la versión final: `npm run preview`
+---
+
 ## 💡 Posibles mejoras
 
 Este proyecto es una primera versión y aún tiene margen de mejora:
@@ -86,12 +95,3 @@ La base del diseño y la estructura inicial han sido proporcionadas por **Adalab
 Este proyecto forma parte de mi formación como **Desarrolladora Web Full Stack** con **Adalab**, para comprender mejor cómo se generan y estructuran los datos desde su origen y ayudarme a adquirir bases sólidas en desarrollo web.
 
 ---
-
-## 🛠️ Instalación y ejecución
-
-Si quieres ejecutar el proyecto en local:
-
-```bash
-npm install
-npm run dev
-```
