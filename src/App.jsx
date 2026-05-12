@@ -45,7 +45,7 @@ export default function App() {
     setStartGame("game")
   }
 
-  useEffect(() => {
+useEffect(() => {
     if (backCard.length === 2) {
       setCount((click) => click + 1)
       setTimeout(() => {
@@ -59,7 +59,7 @@ export default function App() {
     }
   }, [backCard]);
 
-  useEffect(() => {
+useEffect(() => {
     if(matchedCards.length === cardArrayDuplicate.length){
       setResult(true)
     }
