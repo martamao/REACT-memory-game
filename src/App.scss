@@ -3,7 +3,9 @@
   padding: 0;
   box-sizing: border-box;
 }
-
+main {
+  padding: 1rem;
+}
 body {
   color: white;
   display: flex;
@@ -102,4 +104,5 @@ h1 {
 .introQ {
   color: black;
   margin-bottom: 10px;
+  text-align: center;
 }

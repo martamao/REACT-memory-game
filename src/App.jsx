@@ -2,7 +2,7 @@ import "./App.scss";
 import { useState } from "react";
 import Card from "./components/Card";
 import { useEffect } from "react";
-import Button from "./components/Button";
+import Button from "./components/Button"
 import Message from "./components/Message";
 import Counter from "./components/Counter";
 
@@ -47,7 +47,7 @@ export default function App() {
 
   useEffect(() => {
     if (backCard.length === 2) {
-       setCount((click) => click + 1)
+      setCount((click) => click + 1)
       setTimeout(() => {
         if (backCard[0].value === backCard[1].value) {
           setMatchedCards((card) => [...card, backCard[0], backCard[1]]);
@@ -68,8 +68,7 @@ export default function App() {
   return (
     <main>
       <h1>Memory Game</h1>
-      
-      {startGame === "start" ? (<><p class="introQ">Can you find all the pairs in less than 16 moves?</p><Button text="Start Game" btnName="startBtn" onBtnClick={showGame}></Button></>) 
+      {startGame === "start" ? (<><p className="introQ">Can you find all the pairs in less than 16 moves?</p><Button text="Start Game" btnName="startBtn" onBtnClick={showGame}></Button></>) 
       : (<>
         <Counter count={count} points={points}></Counter>
         <div className="table">
@@ -85,7 +84,7 @@ export default function App() {
               ></Card>
           ))}
         </div>
-        <Message result={result}></Message>
+        <Message result={result} count={count} points={points}></Message>
         <Button onBtnClick={handleResetBtn} text="Reset" btnName="resetBtn"></Button>
       </>)}
     </main>
