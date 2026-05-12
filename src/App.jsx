@@ -8,16 +8,17 @@ import Counter from "./components/Counter";
 
 export default function App() {
   const cardArray = ["👽​​​", "🧟‍♀️", "👩🏻‍🚀", "🧑🏻‍💻", "🥷🏻​​", "🐒", "🦚", "🦭​"];
-  const [cards, setCards] = useState(() => {  
-   
-    const cardArrayDuplicate = [...cardArray, ...cardArray];
+
+  const suffleCards = () => {
+      const cardArrayDuplicate = [...cardArray, ...cardArray];
     const cardArrayObj = cardArrayDuplicate.map((oneCard, index) => ({
       id: index,
       value: oneCard,
     }));
     return cardArrayObj.sort(() => Math.random() - 0.5);
-  })
+  }
   
+  const [cards, setCards] = useState(suffleCards)
 ​​​​​​​  const [cardSelected, setCardSelected] = useState();
   const [backCard, setBackCard] = useState([]);
   const [matchedCards, setMatchedCards] = useState([]);
@@ -32,19 +33,18 @@ export default function App() {
   };
 
   const handleResetBtn = () => {
-    setResetGame()
-    {/**Cambiar de estado a cards para volver a mezclar??? */}
     setCount(0)
     setPoints(0)
     setCardSelected({id:"", value:""})
     setBackCard([])
     setMatchedCards([])
-   {/**setCards([]) ????*/}
+    setCards(suffleCards)
   }
 
-const showGame = () => {
-  setStartGame("game")
-}
+  const showGame = () => {
+    setStartGame("game")
+  }
+
   useEffect(() => {
     if (backCard.length === 2) {
        setCount((click) => click + 1)
@@ -69,23 +69,25 @@ const showGame = () => {
     <main>
       <h1>Memory Game</h1>
       
-      {startGame === "start" ? (<Button text="Start Game" btnName="startBtn" showGame={showGame}></Button>) : <div>Juego</div>}
-      <Counter count={count} points={points}></Counter>
-      <div className="table">
-        {cards.map((card) => (
-          <Card
-            onCardClick={handleClickedCard}
-            key={card.id}
-            id={card.id}
-            value={card.value}
-            backCard={backCard}
-            setBackCard={setBackCard}
-            matchedCards={matchedCards}
-            ></Card>
-        ))}
-      </div>
-      <Message result={result}></Message>
-      <Button onBtnClick={handleResetBtn} text="Reset" btnName="resetBtn"></Button>
+      {startGame === "start" ? (<><p class="introQ">Can you find all the pairs in less than 16 moves?</p><Button text="Start Game" btnName="startBtn" onBtnClick={showGame}></Button></>) 
+      : (<>
+        <Counter count={count} points={points}></Counter>
+        <div className="table">
+          {cards.map((card) => (
+            <Card
+              onCardClick={handleClickedCard}
+              key={card.id}
+              id={card.id}
+              value={card.value}
+              backCard={backCard}
+              setBackCard={setBackCard}
+              matchedCards={matchedCards}
+              ></Card>
+          ))}
+        </div>
+        <Message result={result}></Message>
+        <Button onBtnClick={handleResetBtn} text="Reset" btnName="resetBtn"></Button>
+      </>)}
     </main>
   );
 }

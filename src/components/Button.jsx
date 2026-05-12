@@ -1,7 +1,4 @@
-export default function Button({ text, btnName, onBtnClick, showGame }) {
-  const handleClickBtn = (ev) => {
-    showGame();
-  };
+export default function Button({ text, btnName, onBtnClick }) {
   return (
     <button className={`btn ${btnName}`} onClick={onBtnClick}>
       <p>{text}</p>
