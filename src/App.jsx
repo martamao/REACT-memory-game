@@ -8,9 +8,8 @@ import Counter from "./components/Counter";
 
 export default function App() {
   const cardArray = ["👽​​​", "🧟‍♀️", "👩🏻‍🚀", "🧑🏻‍💻", "🥷🏻​​", "🐒", "🦚", "🦭​"];
-
+  const cardArrayDuplicate = [...cardArray, ...cardArray];
   const suffleCards = () => {
-      const cardArrayDuplicate = [...cardArray, ...cardArray];
     const cardArrayObj = cardArrayDuplicate.map((oneCard, index) => ({
       id: index,
       value: oneCard,
@@ -39,6 +38,7 @@ export default function App() {
     setBackCard([])
     setMatchedCards([])
     setCards(suffleCards)
+    setResult(false)
   }
 
   const showGame = () => {
@@ -60,7 +60,7 @@ export default function App() {
   }, [backCard]);
 
   useEffect(() => {
-    if(matchedCards.length === cards.length){
+    if(matchedCards.length === cardArrayDuplicate.length){
       setResult(true)
     }
   }, [matchedCards])
