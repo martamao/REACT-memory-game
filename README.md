@@ -1,9 +1,15 @@
 # 🃏 Memory Game - Encontrar Parejas de Cartas
 
-Este es mi primer proyecto utilizando **React**, desarrollado con **Vite** y estilos en **SASS**.  
+Este es mi primer proyecto utilizando **React**, como parte del contenido del Módulo 3 del Bootcamp en Desarrollo Web Full Stack.
+
+La base del diseño y la estructura inicial del proyecto han sido proporcionadas por **Adalab**, y a partir de ahí he desarrollado toda la lógica del juego.
+
 Se trata de un juego clásico de encontrar parejas de cartas en un tablero de 4x4.
+
 Si quieres acceder al proyecto: https://idontwanttobeanurseanymore.github.io/react-memory-game/
-El proyecto ha sido realizado siguiendo unas instrucciones y una maquetación inicial proporcionadas por **Adalab**, como parte del contenido del Módulo 3 del bootcamp en Desarrollo Web Full Stack.
+
+¿Serás capaz de encontar todas la parejas en menos de 16 movimientos?
+
 
 ---
 
@@ -85,13 +91,5 @@ Este ha sido mi **primer proyecto con React**, por lo que me ha servido para apr
 - Props y estado
 - Manejo de eventos
 - Estructura de proyectos con Vite
-
-La base del diseño y la estructura inicial han sido proporcionadas por **Adalab**, y a partir de ahí he desarrollado toda la lógica del juego.
-
----
-
-## 🎯 Objetivo personal
-
-Este proyecto forma parte de mi formación como **Desarrolladora Web Full Stack** con **Adalab**, para comprender mejor cómo se generan y estructuran los datos desde su origen y ayudarme a adquirir bases sólidas en desarrollo web.
 
 ---
