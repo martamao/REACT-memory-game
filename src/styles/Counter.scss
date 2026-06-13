@@ -1,9 +1,16 @@
 .counterSection {
   display: flex;
-  flex-direction: row;
-  gap: 100px;
+  gap: 40px;
   justify-content: center;
-  color: black;
-  font-size: 20px;
-  font-weight: 500;
+  align-items: center;
+  flex-wrap: wrap;
+  color: var(--color-text);
+  font-size: clamp(14px, 1.2vw + 10px, 20px);
+  font-weight: 600;
+}
+
+.counterSection p {
+  min-width: 140px; /* keeps Numbers inline when space allows */
+  text-align: center;
+  margin: 0;
 }

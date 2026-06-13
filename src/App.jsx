@@ -5,6 +5,7 @@ import Button from "./components/Button";
 import Message from "./components/Message";
 import Counter from "./components/Counter";
 import LandingPage from "./components/LandingPage";
+import Ranking from "./components/Ranking";
 import { useMemoryGame } from "./hooks/useMemoryGame";
 import { GAME_VIEWS } from "./constants";
 
@@ -44,7 +45,7 @@ export default function App() {
       {view === GAME_VIEWS.GAME && (
         <>
           <Counter count={count} points={points} />
-          <div className="table">
+          <div className="table" role="grid" aria-label="Memory Game Board">
             {cards.map((card) => (
               <Card
                 key={card.id}
@@ -71,11 +72,11 @@ export default function App() {
       )}
 
       {view === GAME_VIEWS.RANKING && (
-        <div className="rankingPlaceholder">
-          <h2>Ranking (Coming Soon)</h2>
-          <p>Player: {playerName}</p>
-          <Button onBtnClick={() => setView(GAME_VIEWS.GAME)} text="Back to Game" btnName="backBtn" />
-        </div>
+        <Ranking 
+          onBackToGame={() => setView(GAME_VIEWS.GAME)} 
+          currentPlayerName={playerName}
+          currentMoves={count}
+        />
       )}
     </main>
   );

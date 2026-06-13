@@ -17,7 +17,17 @@ export default function Card({
           if (isResetting || isVisible) return;
           onCardClick({ id, value });
         }}
-        className={`card ${isVisible ? "backCard" : ""} ${isMatched && !isResetting ? "itsAMatch" : ""}`}>
+        className={`card ${isVisible ? "backCard" : ""} ${isMatched && !isResetting ? "itsAMatch" : ""}`}
+        role="gridcell"
+        tabIndex="0"
+        aria-label={`Card ${id}: ${isMatched && !isResetting ? `Matched ${value}` : isVisible ? `Flipped ${value}` : 'Hidden'}`}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            if (isResetting || isVisible) return;
+            onCardClick({ id, value });
+          }
+        }}
+      >
         <div className="front">​👀</div>
         <div className="back">{value}</div>
       </li>

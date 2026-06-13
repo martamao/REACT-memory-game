@@ -4,48 +4,105 @@
   box-sizing: border-box;
 }
 
+/*
+  Retro theme variables and easy customization notes:
+  - Change the light palette in :root. Toggle dark by adding 'theme-dark' to <html>.
+  - Font sizes use clamp() for responsive scaling across screen sizes.
+*/
+
+/* Retro color variables (light defaults) */
+:root {
+  --color-bg-1: #f87e38; /* warm orange (used in original palette) */
+  --color-bg-2: #764ba2; /* purple */
+  --color-accent: #33f49a; /* mint */
+  --color-accent-2: #ff5c9e; /* pink */
+  --color-text: #0b0b0b; /* darker text for light palette */
+  --card-bg: #fff4f8;
+  --card-face: #ffdfe8; /* face-down color */
+  --card-front: #ffffff; /* face-up background */
+  --card-border: #f87e38;
+  --muted: #3b3b3b;
+}
+
+/* Dark theme (toggle by adding class `theme-dark` to <html>) */
+.theme-dark {
+  --color-bg-1: #07070b;
+  --color-bg-2: #0f1622;
+  --color-accent: #39ff14;
+  --color-accent-2: #7bf1ff;
+  --color-text: #f6f9ff; /* bright for contrast */
+  --card-bg: #0c0c10;
+  --card-face: #121218; /* darker face-down */
+  --card-front: #0c0c10;
+  --card-border: #39ff14;
+  --muted: #9fb0a8;
+}
+
+/* Base font scaling: scales up on large screens */
+html { font-size: clamp(14px, 1.2vw + 12px, 18px); }
+
+/* Global body / layout */
 body {
-  color: white;
-  background: linear-gradient(135deg, #f87e38 0%, #764ba2 60%, #33f49a 100%);
+  color: var(--color-text);
+  background: linear-gradient(135deg, var(--color-bg-1) 0%, var(--color-bg-2) 60%);
   min-height: 100vh;
-  font-family: "Crafty Girls", cursive;
-  font-optical-sizing: auto;
-  font-weight: 400;
-  font-style: normal;
-  font-size: 20px;
+  font-family: 'Press Start 2P', 'Crafty Girls', monospace, system-ui;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+}
+
+/* Simple CRT / scanline overlay for retro feel (cheap) */
+body::after {
+  content: '';
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  background-image: linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px);
+  background-size: 100% 3px;
+  mix-blend-mode: overlay;
 }
 
 main {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Centrado vertical */
-  align-items: center;    /* Centrado horizontal */
+  justify-content: center;
+  align-items: center;
   padding: 20px;
   width: 100%;
 }
 
 h1 {
   text-align: center;
-  font-size: 50px;
-  margin-bottom: 2rem;
-  color: #f87e38;
-  -webkit-text-stroke: 0.01px black;
+  font-size: clamp(22px, 2.5vw, 48px);
+  margin-bottom: 1.5rem;
+  color: var(--color-accent);
+  text-shadow: 2px 2px 0 rgba(0,0,0,0.6);
 }
 
+/* Board grid (keeps a square layout using aspect-ratio on cards) */
 .table {
+  width: min(640px, 100%);
   display: grid;
-  grid-template-columns: repeat(4, 100px);
-  grid-template-rows: repeat(4, 100px);
-  gap: 10px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
   justify-content: center;
   margin-top: 20px;
   margin-bottom: 10px;
 }
 
+/* Make imported images look pixelated on scaling */
+img, .card img {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
 .introQ {
-  color: black;
+  color: var(--muted);
   margin-bottom: 10px;
   text-align: center;
 }
@@ -71,20 +128,11 @@ h1 {
   align-items: center;
   gap: 2rem;
   margin-top: 3rem;
-  color: black;
+  color: var(--muted);
 }
 
-@media screen and (max-width: 500px) {
-  h1 {
-    font-size: 35px;
-  }
-
-  .table {
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: auto;
-    gap: 8px;
-    width: 100%;
-    max-width: 400px;
-    padding: 10px;
-  }
+/* Responsive adjustments */
+@media screen and (max-width: 600px) {
+  h1 { font-size: 22px; }
+  .table { width: 100%; gap: 8px; max-width: 420px; grid-template-columns: repeat(4, 1fr); }
 }

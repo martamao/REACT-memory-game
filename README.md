@@ -8,46 +8,63 @@ Se trata de un juego clásico de encontrar parejas de cartas en un tablero de 4x
 
 Si quieres acceder al proyecto: https://idontwanttobeanurseanymore.github.io/react-memory-game/
 
-¿Serás capaz de encontar todas la parejas en menos de 16 movimientos?
-
+¿Serás capaz de encontar todas las parejas en menos de 16 movimientos?
 
 ---
+
+## ✨ Características Principales 
+
+- **🃏 Tablero 4x4**: El reto clásico de encontrar 8 parejas en el menor número de movimientos. 
+
+- **📱 Diseño Responsive**: Adaptado para que puedas jugar tanto en PC como en dispositivos móviles. 
+
+- **🎮 Estética Retro**: Diseño inspirado en las consolas de 8-bit y 16-bit, con fuentes pixeladas y una paleta de colores vibrante. 
+
+- **🚀 Pantalla de Inicio**: Landing page con el estilo retro y entrada de 3 letras para identificar al jugador. 
+
+- **🏆 Sistema de Ranking**: Top 5 local (guardado en localStorage) con opción futura para sincronizar con un backend. 
+
+
 
 ## 🚀 Tecnologías utilizadas
 
-- React
-- Vite
-- SASS (SCSS)
-- JavaScript (ES6+)
-- HTML5
-- CSS3
+- **React 19**: Construcción de la interfaz basada en componentes funcionales. 
 
----
+- **Vite**: Herramienta de desarrollo y construcción ultra-rápida. 
 
-## 🎮 ¿En qué consiste el juego?
+- **SASS (SCSS)**: Estilos modulares y avanzados. 
 
-El objetivo del juego es encontrar todas las parejas de cartas en el menor número de intentos posible.
+- **JavaScript (ES6+)**: Lógica del juego y gestión del estado. 
 
-### Reglas del juego:
+- **HTML5 & CSS3**: Estructura y diseño base. 
 
-- El tablero es de **4x4 cartas**
-- Todas las cartas comienzan boca abajo
-- En cada turno se pueden voltear **2 cartas**
-- Si coinciden, permanecen visibles
-- Si no coinciden, se vuelven a ocultar
-- El juego termina cuando todas las parejas han sido encontradas
 
----
+## 🎮 Reglas del juego: 
+
+1. Al entrar, verás la Pantalla de Inicio. Escribe tu nombre de usuario y pulsa el botón para comenzar. 
+
+2. El tablero aparecerá con todas las cartas boca abajo. 
+
+3. En cada turno, puedes voltear 2 cartas. Si las cartas coinciden, se quedan visibles. Si no coinciden, se vuelven a ocultar tras un breve instante. 
+
+4. El objetivo es encontrar todas las parejas en el menor número de movimientos posible. 
+
+5. Al ganar, podrás ver tu puntuación y, en un futuro muy cercano, comprobar si has entrado en el Top 5 del ranking. 
+
 
 ## 📦 Estructura del proyecto
 
 El proyecto está organizado de la siguiente manera:
 
 - `/src` → Contiene toda la estructura principal de la aplicación
+
+- `/hooks` →
+- `/styles` →
 - `App.jsx` → Componente principal donde se gestiona la lógica del juego y se renderizan los componentes
 - `App.scss` → Estilos globales de la aplicación
+- `constants.js` →
 
-### 🧩 Components
+### 🧩 Componentes
 
 Dentro de `/components` se encuentran los componentes reutilizables del proyecto:
 
@@ -55,41 +72,44 @@ Dentro de `/components` se encuentran los componentes reutilizables del proyecto
 - **Card** → Representa cada carta del tablero
 - **Counter** → Controla el número de intentos o parejas encontradas
 - **Message** → Muestra mensajes de estado (victoria, feedback del juego, etc.)
+- **LandingPage** → 
+- **Ranking** → 
 
 ---
 
 ## ⚡ Instalación
 
 1. Clona el repositorio
+
 2. Instala las dependencias: `npm install`
+
 3. Arranca el proyecto en desarrollo: `npm run dev`
    * Para generar una versión para producción: `npm run build`
    * Para previsualizar la versión final: `npm run preview`
----
 
-## 💡 Posibles mejoras
 
-Este proyecto es una primera versión y aún tiene margen de mejora:
+## 🔮 Futuras funcionalidades
 
-- 🧹 Refactorización y depuración del código
-- 🎚️ Implementar diferentes niveles de dificultad
-  - Tableros más grandes
-  - Más parejas
-- ✨ Animaciones:
-  - Animación al encontrar una pareja
-  - Animación al ganar la partida
-- ⏱️ Añadir límite de tiempo para aumentar la dificultad
-- 📋 Incluir instrucciones dentro del propio juego
+- Backend básico (Express + MySQL) para: 
+  - POST /ranking — guardar puntuaciones. 
+  - GET /ranking — obtener Top 5 o paginado. 
+  - Autenticación simple opcional para persistencia por usuario. 
 
----
+- Niveles de dificultad configurables (más parejas, tiempo máximo, límites de movimientos). 
 
-## 📚 Sobre este proyecto
+- Panel de instrucciones dentro de la aplicación.
 
-Este ha sido mi **primer proyecto con React**, por lo que me ha servido para aprender conceptos clave como:
 
-- Componentes reutilizables
-- Props y estado
-- Manejo de eventos
-- Estructura de proyectos con Vite
+## 🤖 Desarrollo Asistido por IA 
+
+Este proyecto ha sido desarrollado utilizando **Gemini CLI** y **Copilot**, actuando como compañeros de programación (pair programmer). La IA ha asistido en: 
+
+- **Refactorización de código**: Mejora de la estructura y legibilidad. 
+
+- **Implementación de nuevas funcionalidades**: Como el sistema de ranking y la landing page. 
+
+- **Gestión de cambios**: Utilizando la metodología **OpenSpec** para planificar y ejecutar cada fase del desarrollo de forma estructurada. 
 
 ---
+---
+      Desarrollado con ❤️ y un toque retro 
