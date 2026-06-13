@@ -68,7 +68,7 @@ export default function App() {
   return (
     <main>
       <h1>Memory Game</h1>
-      {startGame === "start" ? (<div className="startPage"><p className="introQ">Can you find all the pairs in less than 16 moves?</p><Button text="Let's find out!" btnName="startBtn" onBtnClick={showGame}></Button></div>) 
+      {startGame === "start" ? (<div className="startPage"><p className="introQ">Can you find all the pairs in less than 16 moves?</p><input type="text"></input><Button text="Let's find out!" btnName="startBtn" onBtnClick={showGame}></Button></div>) 
       : (<>
         <Counter count={count} points={points}></Counter>
         <div className="table">
