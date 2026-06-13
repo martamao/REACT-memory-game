@@ -24,7 +24,7 @@ Si quieres acceder al proyecto: https://idontwanttobeanurseanymore.github.io/rea
 
 - **🏆 Sistema de Ranking**: Top 5 local (guardado en localStorage) con opción futura para sincronizar con un backend. 
 
-
+---
 
 ## 🚀 Tecnologías utilizadas
 
@@ -38,6 +38,7 @@ Si quieres acceder al proyecto: https://idontwanttobeanurseanymore.github.io/rea
 
 - **HTML5 & CSS3**: Estructura y diseño base. 
 
+---
 
 ## 🎮 Reglas del juego: 
 
@@ -51,29 +52,34 @@ Si quieres acceder al proyecto: https://idontwanttobeanurseanymore.github.io/rea
 
 5. Al ganar, podrás ver tu puntuación y, en un futuro muy cercano, comprobar si has entrado en el Top 5 del ranking. 
 
+---
 
 ## 📦 Estructura del proyecto
 
 El proyecto está organizado de la siguiente manera:
 
-- `/src` → Contiene toda la estructura principal de la aplicación
+En `/src` encontraremos toda la estructura principal de la aplicación dividido en:
 
-- `/hooks` →
-- `/styles` →
-- `App.jsx` → Componente principal donde se gestiona la lógica del juego y se renderizan los componentes
-- `App.scss` → Estilos globales de la aplicación
-- `constants.js` →
+🧩 Carpetas:
 
-### 🧩 Componentes
+    - `/components`→ Contiene los componentes reutilizables del proyecto
+    - `/styles` → Contiene los estilos separados por componentes
+    - `/hooks` → Contiene el componente principal que gestiona la lógica del juego
 
-Dentro de `/components` se encuentran los componentes reutilizables del proyecto:
+🧩 Ficheros 
 
-- **Button** → Botones de interacción (por ejemplo, reiniciar partida)
-- **Card** → Representa cada carta del tablero
-- **Counter** → Controla el número de intentos o parejas encontradas
-- **Message** → Muestra mensajes de estado (victoria, feedback del juego, etc.)
-- **LandingPage** → 
-- **Ranking** → 
+    - `App.jsx` → Componente principal que renderiza los componentes
+    - `App.scss` → Estilos globales de la aplicación
+    - `constants.js` → Contiene los valores de las distintas cartas
+
+🧩 `/components`
+
+    - **Button** → Botones de interacción (por ejemplo, reiniciar partida)
+    - **Card** → Representa cada carta del tablero
+    - **Counter** → Controla el número de intentos o parejas encontradas
+    - **Message** → Muestra mensajes de estado (victoria, feedback del juego, etc.)
+    - **LandingPage** → 
+    - **Ranking** → 
 
 ---
 
@@ -87,6 +93,7 @@ Dentro de `/components` se encuentran los componentes reutilizables del proyecto
    * Para generar una versión para producción: `npm run build`
    * Para previsualizar la versión final: `npm run preview`
 
+---
 
 ## 🔮 Futuras funcionalidades
 
@@ -99,6 +106,7 @@ Dentro de `/components` se encuentran los componentes reutilizables del proyecto
 
 - Panel de instrucciones dentro de la aplicación.
 
+---
 
 ## 🤖 Desarrollo Asistido por IA 
 
