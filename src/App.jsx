@@ -1,93 +1,82 @@
 import "./App.scss";
 import { useState } from "react";
 import Card from "./components/Card";
-import { useEffect } from "react";
-import Button from "./components/Button"
+import Button from "./components/Button";
 import Message from "./components/Message";
 import Counter from "./components/Counter";
+import LandingPage from "./components/LandingPage";
+import { useMemoryGame } from "./hooks/useMemoryGame";
+import { GAME_VIEWS } from "./constants";
 
 export default function App() {
-  const cardArray = ["👽​​​", "🧟‍♀️", "👩🏻‍🚀", "🧑🏻‍💻", "🥷🏻​​", "🐒", "🦚", "🦭​"];
-  const cardArrayDuplicate = [...cardArray, ...cardArray];
-  const suffleCards = () => {
-    const cardArrayObj = cardArrayDuplicate.map((oneCard, index) => ({
-      id: index,
-      value: oneCard,
-    }));
-    return cardArrayObj.sort(() => Math.random() - 0.5);
-  }
+  const [view, setView] = useState(GAME_VIEWS.LANDING);
+  const [playerName, setPlayerName] = useState("");
   
-  const [cards, setCards] = useState(suffleCards)
-​​​​​​​  const [cardSelected, setCardSelected] = useState();
-  const [backCard, setBackCard] = useState([]);
-  const [matchedCards, setMatchedCards] = useState([]);
-  const [count, setCount] = useState(0)
-  const [points, setPoints] = useState(0)
-  const [result, setResult] = useState(false)
-  const [resetGame, setResetGame] = useState()
-  const [startGame, setStartGame] = useState("start")
- 
-  const handleClickedCard = (cardData) => {
-    setCardSelected(cardData);
+  const {
+    cards,
+    backCard,
+    matchedCards,
+    count,
+    points,
+    result,
+    isResetting,
+    handleReset,
+    selectCard
+  } = useMemoryGame();
+
+  const handleStartGame = (name) => {
+    setPlayerName(name);
+    setView(GAME_VIEWS.GAME);
   };
 
-  const handleResetBtn = () => {
-    setCount(0)
-    setPoints(0)
-    setCardSelected({id:"", value:""})
-    setBackCard([])
-    setMatchedCards([])
-    setCards(suffleCards)
-    setResult(false)
-  }
-
-  const showGame = () => {
-    setStartGame("game")
-  }
-
-  useEffect(() => {
-    if (backCard.length === 2) {
-      setCount((click) => click + 1)
-      setTimeout(() => {
-        if (backCard[0].value === backCard[1].value) {
-          setMatchedCards((card) => [...card, backCard[0], backCard[1]]);
-            setPoints((point) => point + 1)
-        } else {
-          setBackCard((card) => []);
-        }
-      }, 1000);
-    }
-  }, [backCard]);
-
-  useEffect(() => {
-    if(matchedCards.length === cardArrayDuplicate.length){
-      setResult(true)
-    }
-  }, [matchedCards])
+  const handleShowRanking = () => {
+    setView(GAME_VIEWS.RANKING);
+  };
 
   return (
     <main>
       <h1>Memory Game</h1>
-      {startGame === "start" ? (<div className="startPage"><p className="introQ">Can you find all the pairs in less than 16 moves?</p><input type="text"></input><Button text="Let's find out!" btnName="startBtn" onBtnClick={showGame}></Button></div>) 
-      : (<>
-        <Counter count={count} points={points}></Counter>
-        <div className="table">
-          {cards.map((card) => (
-            <Card
-              onCardClick={handleClickedCard}
-              key={card.id}
-              id={card.id}
-              value={card.value}
-              backCard={backCard}
-              setBackCard={setBackCard}
-              matchedCards={matchedCards}
-              ></Card>
-          ))}
+
+      {view === GAME_VIEWS.LANDING && (
+        <LandingPage onStartGame={handleStartGame} />
+      )}
+
+      {view === GAME_VIEWS.GAME && (
+        <>
+          <Counter count={count} points={points} />
+          <div className="table">
+            {cards.map((card) => (
+              <Card
+                key={card.id}
+                id={card.id}
+                value={card.value}
+                onCardClick={selectCard}
+                isFlipped={backCard.some((c) => c.id === card.id)}
+                isMatched={matchedCards.some((c) => c.id === card.id)}
+                isResetting={isResetting}
+              />
+            ))}
+          </div>
+          
+          {result && (
+            <div className="resultSection">
+              <Message result={result} count={count} points={points} />
+              <div className="resultButtons">
+                <Button onBtnClick={handleReset} text="Reset game" btnName="resetBtn" />
+                <Button onBtnClick={handleShowRanking} text="Show Ranking" btnName="rankingBtn" />
+              </div>
+            </div>
+          )}
+        </>
+      )}
+
+      {view === GAME_VIEWS.RANKING && (
+        <div className="rankingPlaceholder">
+          <h2>Ranking (Coming Soon)</h2>
+          <p>Player: {playerName}</p>
+          <Button onBtnClick={() => setView(GAME_VIEWS.GAME)} text="Back to Game" btnName="backBtn" />
         </div>
-        </>)}
-        {result === true ? (
-          <><Message result={result} count={count} points={points}></Message>
-          <Button onBtnClick={handleResetBtn} text="Reset game" btnName="resetBtn"></Button></>) : ""}
+      )}
     </main>
   );
 }

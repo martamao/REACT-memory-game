@@ -1,3 +1,5 @@
+import "../styles/Message.scss";
+
 export default function Message({ result, count, points }) {
   if (!result) return;
   let textMessage;

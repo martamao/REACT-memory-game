@@ -1,28 +1,23 @@
+import "../styles/Card.scss";
+
 export default function Card({
   id,
   value,
   onCardClick,
-  backCard,
-  setBackCard,
-  matchedCards,
+  isFlipped,
+  isMatched,
+  isResetting,
 }) {
-  const clickedCard = backCard.some((card) => card.id === id);
-  const itsAMatch = matchedCards.some((card) => card.id === id);
-  const isVisible = clickedCard || itsAMatch;
+  const isVisible = (isFlipped || isMatched) && !isResetting;
 
   return (
     <>
       <li
         onClick={() => {
+          if (isResetting || isVisible) return;
           onCardClick({ id, value });
-          setBackCard((card) => {
-            if (card.length === 2) {
-              return [{ id, value }];
-            }
-            return [...card, { id, value }];
-          });
         }}
-        className={`card ${isVisible ? "backCard" : ""} ${itsAMatch ? "itsAMatch" : ""}`}>
+        className={`card ${isVisible ? "backCard" : ""} ${isMatched && !isResetting ? "itsAMatch" : ""}`}>
         <div className="front">​👀</div>
         <div className="back">{value}</div>
       </li>
