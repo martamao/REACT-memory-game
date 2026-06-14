@@ -69,8 +69,7 @@ h1 {
 
 /* Board grid (keeps a square layout using aspect-ratio on cards) */
 .table {
-  width: min(640px, 100%);
-  max-width: 55vh;
+  width: min(70vmin, 720px, 100%);
   aspect-ratio: 1 / 1;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -120,6 +119,64 @@ img, .card img {
 }
 
 /* Responsive adjustments */
+@media screen and (min-width: 900px) and (min-height: 640px) {
+  main:has(.table) {
+    display: grid;
+    grid-template-areas:
+      "title"
+      "counter"
+      "board";
+    grid-template-columns: minmax(0, 1fr);
+    align-content: center;
+    justify-items: center;
+    gap: 0.85rem;
+    padding: 24px;
+  }
+
+  main:has(.table) h1 {
+    grid-area: title;
+    margin-bottom: 0;
+  }
+
+  main:has(.table) .counterSection {
+    grid-area: counter;
+  }
+
+  main:has(.table) .table {
+    grid-area: board;
+    width: min(72dvh, 760px, calc(100vw - 48px));
+    margin: 0;
+  }
+
+  main:has(.table):has(.resultSection) {
+    grid-template-areas:
+      "title title"
+      "counter counter"
+      "board result";
+    grid-template-columns: minmax(420px, auto) minmax(220px, 320px);
+    column-gap: clamp(24px, 4vw, 64px);
+  }
+
+  main:has(.table):has(.resultSection) .table {
+    width: min(68dvh, 760px, 58vw);
+    justify-self: end;
+  }
+
+  main:has(.table) .resultSection {
+    grid-area: result;
+    align-self: center;
+    justify-self: start;
+    max-width: 320px;
+    margin-top: 0;
+  }
+
+  main:has(.table) .resultButtons {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+}
+
 @media screen and (max-width: 600px) {
   h1 { font-size: 22px; }
   .table { width: 100%; gap: 8px; max-width: 420px; grid-template-columns: repeat(4, 1fr); }

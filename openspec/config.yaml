@@ -6,6 +6,7 @@ context: |
   Goal: Memory Game with Retro aesthetic.
   Language: Spanish for communication, English for code.
   Coding Standards: Functional components, responsive design.
+  Command Restrictions: Do not run build commands or git commands unless the user explicitly requests them.
 
 # Per-artifact rules (optional)
 # Add custom rules for specific artifacts.

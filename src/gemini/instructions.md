@@ -27,6 +27,7 @@ Este documento centraliza los requisitos y el flujo de trabajo para el desarroll
 - **Estructura**: Estilos modulares en carpeta propia. Lógica de juego extraída en custom hooks.
 - **Rendimiento**: Uso de algoritmos de barajado eficientes (Fisher-Yates).
 - **Mantenibilidad**: Centralización de constantes (emojis, tiempos, rutas).
+- **Restricción de comandos**: No ejecutar comandos de build ni comandos git salvo que la usuaria lo pida explícitamente.
 
 ## Backend (Próximamente)
 - Configuración de servidor Express.
