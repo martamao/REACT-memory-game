@@ -2,122 +2,112 @@
 
 Este es mi primer proyecto utilizando **React**, como parte del contenido del Módulo 3 del Bootcamp en Desarrollo Web Full Stack.
 
-La base del diseño y la estructura inicial del proyecto han sido proporcionadas por **Adalab**, y a partir de ahí he desarrollado toda la lógica del juego.
+El diseño y la estructura inicial del proyecto se basaron en una propuesta de **Adalab**, pero el diseño retro actual es una iniciativa propia, buscando una estética más personal y divertida. El backend se encuentra actualmente en desarrollo, pero estará disponible muy muy muy pronto.
 
 Se trata de un juego clásico de encontrar parejas de cartas en un tablero de 4x4.
 
-Si quieres acceder al proyecto: https://idontwanttobeanurseanymore.github.io/react-memory-game/
+Te recomiendo que pruebes el proyecto, ¡te enganchará!
 
-¿Serás capaz de encontar todas las parejas en menos de 16 movimientos?
+🔗 https://idontwanttobeanurseanymore.github.io/react-memory-game/
+
+¿Serás capaz de encontrar todas las parejas en el menor tiempo posible y clasificarte en el **TOP 10**?
 
 ---
 
 ## ✨ Características Principales 
 
-- **🃏 Tablero 4x4**: El reto clásico de encontrar 8 parejas en el menor número de movimientos. 
-
-- **📱 Diseño Responsive**: Adaptado para que puedas jugar tanto en PC como en dispositivos móviles. 
-
-- **🎮 Estética Retro**: Diseño inspirado en las consolas de 8-bit y 16-bit, con fuentes pixeladas y una paleta de colores vibrante. 
-
-- **🚀 Pantalla de Inicio**: Landing page con el estilo retro y entrada de 3 letras para identificar al jugador. 
-
-- **🏆 Sistema de Ranking**: Top 5 local (guardado en localStorage) con opción futura para sincronizar con un backend. 
+- **🃏 Tablero 4x4**: El reto clásico de encontrar 8 parejas.
+- **📱 Diseño Responsive**: Experiencia optimizada para móviles y escritorio.
+- **🎮 Estética Retro**: Inspirado en las consolas de 8 y 16 bits, con fuentes pixeladas y colores vibrantes.
+- **🚀 Pantalla de Inicio**: Landing page personalizada con entrada de nombre de usuario.
+- **🏆 Sistema de Ranking**: Top 10 local (guardado en `localStorage`) que registra movimientos y tiempo.
 
 ---
 
 ## 🚀 Tecnologías utilizadas
 
-- **React 19**: Construcción de la interfaz basada en componentes funcionales. 
-
-- **Vite**: Herramienta de desarrollo y construcción ultra-rápida. 
-
-- **SASS (SCSS)**: Estilos modulares y avanzados. 
-
-- **JavaScript (ES6+)**: Lógica del juego y gestión del estado. 
-
-- **HTML5 & CSS3**: Estructura y diseño base. 
+- **React 19**: Interfaz moderna basada en componentes funcionales.
+- **Vite 8**: Desarrollo y construcción ultra-rápida.
+- **SASS (SCSS)**: Estilos modulares y avanzados.
+- **JavaScript (ES6+)**: Lógica del juego y gestión de estado.
+- **AI Agents**: **Gemini CLI**, **Copilot CLI** y **Codex** actuando como copilotos activos en el desarrollo.
 
 ---
 
 ## 🎮 Reglas del juego: 
 
-1. Al entrar, verás la Pantalla de Inicio. Escribe tu nombre de usuario y pulsa el botón para comenzar. 
-
-2. El tablero aparecerá con todas las cartas boca abajo. 
-
-3. En cada turno, puedes voltear 2 cartas. Si las cartas coinciden, se quedan visibles. Si no coinciden, se vuelven a ocultar tras un breve instante. 
-
-4. El objetivo es encontrar todas las parejas en el menor número de movimientos posible. 
-
-5. Al ganar, podrás ver tu puntuación y, en un futuro muy cercano, comprobar si has entrado en el Top 5 del ranking. 
+1. **Inicio**: Escribe tu nombre de usuario en la página principal para comenzar.
+2. **El Reto**: Voltea 2 cartas por turno. Si coinciden, permanecen visibles; si no, se ocultan tras un breve instante.
+3. **El Tiempo**: El cronómetro comienza en cuanto entras al tablero. ¡Sé rápido!
+4. **Victoria**: El juego termina cuando encuentras las 8 parejas.
+5. **Ranking**: Al ganar, podrás ver tu puntuación y comprobar si has entrado en el Top 10 basándote en el número de movimientos y el tiempo empleado.
 
 ---
 
 ## 📦 Estructura del proyecto
 
-El proyecto está organizado de la siguiente manera:
+El código está organizado de forma modular para facilitar su mantenimiento y escalabilidad:
 
-En `/src` encontraremos toda la estructura principal de la aplicación dividido en:
-
-🧩 Carpetas:
-
-    - `/components`→ Contiene los componentes reutilizables del proyecto
-    - `/styles` → Contiene los estilos separados por componentes
-    - `/hooks` → Contiene el componente principal que gestiona la lógica del juego
-
-🧩 Ficheros 
-
-    - `App.jsx` → Componente principal que renderiza los componentes
-    - `App.scss` → Estilos globales de la aplicación
-    - `constants.js` → Contiene los valores de las distintas cartas
-
-🧩 `/components`
-
-    - **Button** → Botones de interacción (por ejemplo, reiniciar partida)
-    - **Card** → Representa cada carta del tablero
-    - **Counter** → Controla el número de intentos o parejas encontradas
-    - **Message** → Muestra mensajes de estado (victoria, feedback del juego, etc.)
-    - **LandingPage** → 
-    - **Ranking** → 
+```text
+src/
+├── components/          # Componentes de la interfaz
+│   ├── Button.jsx       # Botones interactivos retro
+│   ├── Card.jsx         # Lógica visual de cada carta
+│   ├── Counter.jsx      # Panel de movimientos, puntos y tiempo
+│   ├── LandingPage.jsx  # Pantalla de bienvenida y registro
+│   ├── Message.jsx      # Mensajes de feedback (Victoria/Derrota)
+│   └── Ranking.jsx      # Tabla de puntuaciones persistente
+├── hooks/               # Lógica de negocio desacoplada
+│   └── useMemoryGame.js # Hook principal que gestiona el estado del juego
+├── styles/              # Estilos modulares (SASS)
+│   └── [Component].scss # Estilos específicos por componente
+├── App.jsx              # Orquestador principal de vistas
+├── App.scss             # Estilos globales y layouts
+├── constants.js         # Configuraciones y datos estáticos
+└── main.jsx             # Punto de entrada de la aplicación
+```
 
 ---
 
 ## ⚡ Instalación
 
-1. Clona el repositorio
-
+1. Clona el repositorio.
 2. Instala las dependencias: `npm install`
-
-3. Arranca el proyecto en desarrollo: `npm run dev`
-   * Para generar una versión para producción: `npm run build`
-   * Para previsualizar la versión final: `npm run preview`
+3. Arranca el proyecto: `npm run dev`
 
 ---
 
 ## 🔮 Futuras funcionalidades
 
-- Backend básico (Express + MySQL) para: 
-  - POST /ranking — guardar puntuaciones. 
-  - GET /ranking — obtener Top 5
-  - Autenticación simple para persistencia por usuario. 
-
-- Niveles de dificultad configurables (más parejas, tiempo máximo, límites de movimientos). 
-
-- Panel de instrucciones dentro de la aplicación.
+- **Backend (Express + MySQL)**: Persistencia global del ranking y autenticación simple.
+- **Dificultad**: Niveles configurables (más cartas, tiempo límite).
+- **Sonidos**: Efectos de sonido retro para mejorar la inmersión.
 
 ---
 
-## 🤖 Desarrollo Asistido por IA 
+## 🤖 Desarrollo Asistido por IA
 
-Este proyecto ha sido desarrollado utilizando **Gemini CLI** y **Copilot**, actuando como compañeros de programación (pair programmer). La IA ha asistido en: 
+Este proyecto ha sido desarrollado con la ayuda de **Gemini CLI**, **Copilot CLI** y **Codex**. Gracias a la colaboración entre programadora y asistente, el flujo de trabajo es dinámico y eficiente:
 
-- **Refactorización de código**: Mejora de la estructura y legibilidad. 
+- **Metodología OpenSpec**: Cada cambio se planifica, diseña y ejecuta siguiendo especificaciones estrictas para garantizar la calidad.
+- **Pair Programming**: La IA no solo genera código, sino que asiste en la arquitectura, refactorización y resolución de bugs complejos en tiempo real.
 
-- **Implementación de nuevas funcionalidades**: Como el sistema de ranking y la landing page. 
+---
 
-- **Gestión de cambios**: Utilizando la metodología **OpenSpec** para planificar y ejecutar cada fase del desarrollo de forma estructurada. 
+## 🏗️ Estado del proyecto y Agradecimientos
+
+Este proyecto es un "work in progress" constante. Actualmente estoy aprendiendo a construir el backend para conectarlo y hacerlo 100% funcional y persistente. Se aceptan comentarios, sugerencias y PRs.
+
+
+**Agradecimientos:**
+- A **Iván**, mi profesor, por su guía y paciencia.
+- A la **IA**, por ser las mejores compañeras de código.
+- A **Adalab**, por abrirme las puertas del mundo tech.
+- A toda la comunidad **OpenSource** por las herramientas que hacen esto posible.
 
 ---
 ---
-      Desarrollado con ❤️ y un toque retro 
+
+_Si has tenido que mirar en Google el significado de alguna cosa, que sepas que yo también lo he tenido que hacer. Las "frases breves y concisas" no van de la mano de "que lo entienda todo el mundo". ¡Gracias por leer hasta el final!_
+
+Desarrollado con ❤️ y mucha paciencia
