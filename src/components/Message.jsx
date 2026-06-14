@@ -1,7 +1,7 @@
 import "../styles/Message.scss";
 
 export default function Message({ result, timeout, count, points }) {
-  if (timeout) return <p className="result">Time out!</p>;
+  if (timeout) return <p className="result">Time's up! Try again!</p>;
   if (!result) return;
   let textMessage;
   if (count <= 16) {

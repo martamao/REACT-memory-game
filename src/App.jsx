@@ -7,7 +7,7 @@ import Counter from "./components/Counter";
 import LandingPage from "./components/LandingPage";
 import Ranking from "./components/Ranking";
 import { useMemoryGame } from "./hooks/useMemoryGame";
-import { GAME_VIEWS } from "./constants";
+import { GAME_VIEWS, STORAGE_KEY } from "./constants";
 
 export default function App() {
   const [view, setView] = useState(GAME_VIEWS.LANDING);
@@ -36,8 +36,14 @@ export default function App() {
   };
 
   const handleShowRanking = () => {
-    // TODO: Implement actual ranking saving logic here
-    // Example: if (!timeout) { saveResultToLocalStorage(playerName, count, elapsedTime); }
+    if (result && !timeout) {
+      const currentRanking = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+      const newEntry = { name: playerName || 'Anonymous', moves: count, time: elapsedTime };
+      const updatedRanking = [...currentRanking, newEntry]
+        .sort((a, b) => a.moves - b.moves || a.time - b.time)
+        .slice(0, 10);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedRanking));
+    }
     setView(GAME_VIEWS.RANKING);
   };
 
@@ -72,7 +78,7 @@ export default function App() {
             ))}
           </div>
           
-          <Button onBtnClick={handleBackToLanding} text="Return to Landing" btnName="backToLandingBtn" />
+          <Button onBtnClick={handleBackToLanding} text="GO BACK" btnName="backToLandingBtn" />
 
           {timeout && (
             <div className="resultSection">

@@ -52,10 +52,19 @@
 
   .current-stats {
     background: #333;
-    padding: 0.5rem 1rem;
+    padding: 0.8rem 1.5rem;
     border-radius: 4px;
     font-size: 0.9rem;
     color: #eee;
+    line-height: 1.4;
+    text-align: center;
+    width: fit-content;
+    margin: 0.5rem auto;
+
+    p {
+      margin: 0.2rem 0;
+      white-space: nowrap;
+    }
     
     strong {
       color: #ffcc00;

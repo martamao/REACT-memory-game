@@ -1,16 +1,16 @@
+import { useEffect, useState } from 'react';
 import '../styles/Ranking.scss';
 import Button from './Button';
-
-// Nota: En una implementación real, esto vendría de LocalStorage o un backend.
-const MOCK_RANKING = [
-  { name: 'AAA', moves: 12, time: 60 },
-  { name: 'BBB', moves: 15, time: 80 },
-  { name: 'CCC', moves: 18, time: 90 },
-  { name: 'DDD', moves: 12, time: 50 },
-  { name: 'EEE', moves: 25, time: 100 },
-];
+import { STORAGE_KEY } from '../constants';
 
 export default function Ranking({ onBackToGame, currentPlayerName, currentMoves, currentTime }) {
+  const [ranking, setRanking] = useState([]);
+
+  useEffect(() => {
+    const storedRanking = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    setRanking(storedRanking);
+  }, []);
+
   const formatTime = (seconds) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
@@ -18,7 +18,7 @@ export default function Ranking({ onBackToGame, currentPlayerName, currentMoves,
   };
 
   // Ordenar: primero por movimientos, luego por tiempo
-  const sortedRanking = [...MOCK_RANKING].sort((a, b) => a.moves - b.moves || a.time - b.time);
+  const sortedRanking = [...ranking].sort((a, b) => a.moves - b.moves || a.time - b.time).slice(0, 10);
 
   return (
     <section className="ranking">
@@ -34,20 +34,27 @@ export default function Ranking({ onBackToGame, currentPlayerName, currentMoves,
             </tr>
           </thead>
           <tbody>
-            {sortedRanking.map((player, index) => (
-              <tr key={index}>
-                <td>{index + 1}</td>
-                <td>{player.name}</td>
-                <td>{player.moves}</td>
-                <td>{formatTime(player.time)}</td>
+            {sortedRanking.length > 0 ? (
+              sortedRanking.map((player, index) => (
+                <tr key={index}>
+                  <td>{index + 1}</td>
+                  <td>{player.name}</td>
+                  <td>{player.moves}</td>
+                  <td>{formatTime(player.time)}</td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="4" style={{ textAlign: 'center', padding: '20px' }}>No records yet. Be the first!</td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </div>
-      
+
       <div className="current-stats">
-        <p>Your last game ({currentPlayerName}): <strong>{currentMoves} moves</strong> in <strong>{formatTime(currentTime)}</strong></p>
+        <p>Your last game ({currentPlayerName}):</p>
+        <p><strong>{currentMoves} moves</strong> in <strong>{formatTime(currentTime)}</strong></p>
       </div>
 
       <Button onBtnClick={onBackToGame} text="Back to Game" btnName="backBtn" />
