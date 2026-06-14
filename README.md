@@ -6,7 +6,7 @@ El diseño y la estructura inicial del proyecto se basaron en una propuesta de *
 
 Se trata de un juego clásico de encontrar parejas de cartas en un tablero de 4x4.
 
-Te recomiendo que pruebes el proyecto, ¡te enganchará!
+**Te recomiendo que pruebes el proyecto, ¡te enganchará!**
 
 🔗 https://idontwanttobeanurseanymore.github.io/react-memory-game/
 
@@ -101,14 +101,14 @@ Este proyecto es un "work in progress" constante. Actualmente estoy aprendiendo 
 
 **Agradecimientos:**
 - A **Iván**, mi profesor, por su guía y su infinita curiosidad.
-- A la **IA**, por ser las mejores compañeras de código.
 - A **Adalab**, por abrirme las puertas del mundo tech.
+- A las **IA**, por ser las mejores compañeras de código.
 - A toda la comunidad **OpenSource** por las herramientas que hacen esto posible.
 
 ---
 ---
 
-_Si has tenido que mirar en Google el significado de alguna cosa, que sepas que yo también lo he tenido que hacer. Las "frases breves y concisas" no van de la mano de "que lo entienda todo el mundo"._
+_Si has tenido que mirar en Google el significado de alguna cosa, tranquila, no eres la única. Lo "breve, conciso y preciso" no van de la mano de "que lo entiendan también los juniors"._
 
 **Desarrollado con ❤️ y mucha paciencia**
 
