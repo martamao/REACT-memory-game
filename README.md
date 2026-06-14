@@ -99,8 +99,8 @@ En `/src` encontraremos toda la estructura principal de la aplicación dividido 
 
 - Backend básico (Express + MySQL) para: 
   - POST /ranking — guardar puntuaciones. 
-  - GET /ranking — obtener Top 5 o paginado. 
-  - Autenticación simple opcional para persistencia por usuario. 
+  - GET /ranking — obtener Top 5
+  - Autenticación simple para persistencia por usuario. 
 
 - Niveles de dificultad configurables (más parejas, tiempo máximo, límites de movimientos). 
 

@@ -21,17 +21,30 @@ export default function App() {
     points,
     result,
     isResetting,
+    elapsedTime,
+    timeout,
+    gameStarted,
     handleReset,
+    startGame,
     selectCard
   } = useMemoryGame();
 
   const handleStartGame = (name) => {
     setPlayerName(name);
+    startGame();
     setView(GAME_VIEWS.GAME);
   };
 
   const handleShowRanking = () => {
+    // TODO: Implement actual ranking saving logic here
+    // Example: if (!timeout) { saveResultToLocalStorage(playerName, count, elapsedTime); }
     setView(GAME_VIEWS.RANKING);
+  };
+
+  const handleBackToLanding = () => {
+    handleReset();
+    setPlayerName("");
+    setView(GAME_VIEWS.LANDING);
   };
 
   return (
@@ -44,7 +57,7 @@ export default function App() {
 
       {view === GAME_VIEWS.GAME && (
         <>
-          <Counter count={count} points={points} />
+          <Counter count={count} points={points} time={elapsedTime} />
           <div className="table" role="grid" aria-label="Memory Game Board">
             {cards.map((card) => (
               <Card
@@ -59,6 +72,17 @@ export default function App() {
             ))}
           </div>
           
+          <Button onBtnClick={handleBackToLanding} text="Return to Landing" btnName="backToLandingBtn" />
+
+          {timeout && (
+            <div className="resultSection">
+              <Message timeout={timeout} />
+              <div className="resultButtons">
+                <Button onBtnClick={handleReset} text="Reset game" btnName="resetBtn" />
+              </div>
+            </div>
+          )}
+
           {result && (
             <div className="resultSection">
               <Message result={result} count={count} points={points} />
@@ -76,6 +100,7 @@ export default function App() {
           onBackToGame={() => setView(GAME_VIEWS.GAME)} 
           currentPlayerName={playerName}
           currentMoves={count}
+          currentTime={elapsedTime}
         />
       )}
     </main>

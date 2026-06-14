@@ -1,11 +1,56 @@
-import { useState, useEffect, useCallback } from "react";
+import { useEffect, useCallback, useReducer, useMemo } from "react";
 import { CARD_ARRAY, RESET_ANIMATION_DURATION, MATCH_DELAY } from "../constants";
 
+const initialState = {
+  cards: [],
+  backCard: [],
+  matchedCards: [],
+  count: 0,
+  points: 0,
+  result: false,
+  isResetting: false,
+  elapsedTime: 0,
+  timeout: false,
+  gameStarted: false
+};
+
+function gameReducer(state, action) {
+  switch (action.type) {
+    case 'RESET_START':
+      return { ...state, isResetting: true, backCard: [], matchedCards: [], result: false, elapsedTime: 0, timeout: false, gameStarted: false };
+    case 'RESET_COMPLETE':
+      return { ...state, cards: action.cards, count: 0, points: 0, isResetting: false };
+    case 'START_GAME':
+      return { ...state, gameStarted: true };
+    case 'FLIP_CARD':
+      if (state.isResetting || state.backCard.find(c => c.id === action.card.id) || state.backCard.length >= 2) return state;
+      return { ...state, backCard: [...state.backCard, action.card] };
+    case 'INCREMENT_COUNT':
+      return { ...state, count: state.count + 1 };
+    case 'MATCH_CARDS':
+      return { 
+        ...state, 
+        matchedCards: [...state.matchedCards, ...action.cards], 
+        points: state.points + 1,
+        backCard: []
+      };
+    case 'CLEAR_BACK_CARD':
+      return { ...state, backCard: [] };
+    case 'SET_RESULT':
+      return { ...state, result: true };
+    case 'TICK':
+      return { ...state, elapsedTime: state.elapsedTime + 1 };
+    case 'SET_TIMEOUT':
+      return { ...state, timeout: true };
+    default:
+      return state;
+  }
+}
+
 export const useMemoryGame = () => {
-  const cardArrayDuplicate = [...CARD_ARRAY, ...CARD_ARRAY];
+  const cardArrayDuplicate = useMemo(() => [...CARD_ARRAY, ...CARD_ARRAY], []);
 
   const shuffleCards = useCallback(() => {
-    // Implementación de Fisher-Yates para un barajado más justo
     const cardArrayObj = cardArrayDuplicate.map((value, index) => ({
       id: index,
       value,
@@ -17,69 +62,75 @@ export const useMemoryGame = () => {
     }
     
     return cardArrayObj;
+  }, [cardArrayDuplicate]);
+
+  const [state, dispatch] = useReducer(gameReducer, { ...initialState, cards: shuffleCards() });
+
+  useEffect(() => {
+    let timer;
+    // Start timer if game is started, active, not resetting, not finished, and not timed out
+    if (state.gameStarted && state.matchedCards.length < cardArrayDuplicate.length && !state.isResetting && !state.result && !state.timeout) {
+      timer = setInterval(() => {
+        dispatch({ type: 'TICK' });
+      }, 1000);
+    }
+    // Timeout check
+    if (state.elapsedTime >= 900 && !state.timeout) {
+      dispatch({ type: 'SET_TIMEOUT' });
+    }
+    return () => clearInterval(timer);
+  }, [state.gameStarted, state.matchedCards.length, state.isResetting, state.result, state.timeout, state.elapsedTime, cardArrayDuplicate.length]);
+
+  const startGame = useCallback(() => {
+    dispatch({ type: 'START_GAME' });
   }, []);
 
-  const [cards, setCards] = useState(shuffleCards);
-  const [backCard, setBackCard] = useState([]);
-  const [matchedCards, setMatchedCards] = useState([]);
-  const [count, setCount] = useState(0);
-  const [points, setPoints] = useState(0);
-  const [result, setResult] = useState(false);
-  const [isResetting, setIsResetting] = useState(false);
-
   const handleReset = useCallback(() => {
-    setIsResetting(true);
-    setBackCard([]);
-    setMatchedCards([]);
-    setResult(false);
+    dispatch({ type: 'RESET_START' });
 
     setTimeout(() => {
-      setCards(shuffleCards());
-      setCount(0);
-      setPoints(0);
-      setIsResetting(false);
+      dispatch({ type: 'RESET_COMPLETE', cards: shuffleCards() });
     }, RESET_ANIMATION_DURATION);
   }, [shuffleCards]);
 
   useEffect(() => {
-    if (backCard.length === 2) {
-      setCount((prev) => prev + 1);
+    if (state.backCard.length === 2) {
+      dispatch({ type: 'INCREMENT_COUNT' });
       const timer = setTimeout(() => {
-        if (backCard[0].value === backCard[1].value) {
-          setMatchedCards((prev) => [...prev, backCard[0], backCard[1]]);
-          setPoints((prev) => prev + 1);
+        if (state.backCard[0].value === state.backCard[1].value) {
+          dispatch({ type: 'MATCH_CARDS', cards: [state.backCard[0], state.backCard[1]] });
+        } else {
+          dispatch({ type: 'CLEAR_BACK_CARD' });
         }
-        setBackCard([]);
       }, MATCH_DELAY);
       return () => clearTimeout(timer);
     }
-  }, [backCard]);
+  }, [state.backCard]);
 
   useEffect(() => {
-    if (matchedCards.length === cardArrayDuplicate.length && cardArrayDuplicate.length > 0) {
-      setResult(true);
+    if (state.matchedCards.length === cardArrayDuplicate.length && cardArrayDuplicate.length > 0) {
+      dispatch({ type: 'SET_RESULT' });
     }
-  }, [matchedCards, cardArrayDuplicate.length]);
+  }, [state.matchedCards, cardArrayDuplicate.length]);
 
   const selectCard = (cardData) => {
-    if (isResetting) return;
-    
-    setBackCard((prev) => {
-      // Evitar seleccionar la misma carta o más de 2
-      if (prev.find(c => c.id === cardData.id) || prev.length >= 2) return prev;
-      return [...prev, cardData];
-    });
+    if (state.timeout || state.result) return;
+    dispatch({ type: 'FLIP_CARD', card: cardData });
   };
 
   return {
-    cards,
-    backCard,
-    matchedCards,
-    count,
-    points,
-    result,
-    isResetting,
+    cards: state.cards,
+    backCard: state.backCard,
+    matchedCards: state.matchedCards,
+    count: state.count,
+    points: state.points,
+    result: state.result,
+    isResetting: state.isResetting,
+    elapsedTime: state.elapsedTime,
+    timeout: state.timeout,
+    gameStarted: state.gameStarted,
     handleReset,
+    startGame,
     selectCard
   };
 };

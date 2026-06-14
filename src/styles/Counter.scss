@@ -1,6 +1,6 @@
 .counterSection {
   display: flex;
-  gap: 40px;
+  gap: 20px;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
@@ -10,7 +10,7 @@
 }
 
 .counterSection p {
-  min-width: 140px; /* keeps Numbers inline when space allows */
+  min-width: 100px;
   text-align: center;
   margin: 0;
 }

@@ -29,7 +29,7 @@ export default function LandingPage({ onStartGame }) {
         <div className="lettersContainer">
           {placeholders.map((_, index) => (
             <span key={index} className="retroLetter">
-              {letters[index] || "_"}
+              {letters[index] || ""}
             </span>
           ))}
         </div>
@@ -54,7 +54,7 @@ export default function LandingPage({ onStartGame }) {
         text="Let's find out!"
         btnName="startBtn"
         onBtnClick={() => onStartGame(playerName)}
-        disabled={isButtonDisabled} // Note: Button component might need updating to handle disabled prop
+        disabled={isButtonDisabled}
       />
     </div>
   );
