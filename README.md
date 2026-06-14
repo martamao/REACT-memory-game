@@ -100,7 +100,7 @@ Este proyecto es un "work in progress" constante. Actualmente estoy aprendiendo 
 
 
 **Agradecimientos:**
-- A **Iván**, mi profesor, por su guía y paciencia.
+- A **Iván**, mi profesor, por su guía y su infinita curiosidad.
 - A la **IA**, por ser las mejores compañeras de código.
 - A **Adalab**, por abrirme las puertas del mundo tech.
 - A toda la comunidad **OpenSource** por las herramientas que hacen esto posible.
@@ -108,6 +108,8 @@ Este proyecto es un "work in progress" constante. Actualmente estoy aprendiendo 
 ---
 ---
 
-_Si has tenido que mirar en Google el significado de alguna cosa, que sepas que yo también lo he tenido que hacer. Las "frases breves y concisas" no van de la mano de "que lo entienda todo el mundo". ¡Gracias por leer hasta el final!_
+_Si has tenido que mirar en Google el significado de alguna cosa, que sepas que yo también lo he tenido que hacer. Las "frases breves y concisas" no van de la mano de "que lo entienda todo el mundo"._
 
-Desarrollado con ❤️ y mucha paciencia
+**Desarrollado con ❤️ y mucha paciencia**
+
+_¡Gracias por leer hasta el final!_
