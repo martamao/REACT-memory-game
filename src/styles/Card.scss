@@ -1,7 +1,7 @@
 .card {
   background-color: var(--card-bg);
-  border: 8px solid var(--card-border); /* thicker border for better separation */
-  border-radius: 6px;
+  border: 4px solid #000000;
+  border-radius: 0;
   list-style: none;
   position: relative;
   transform-style: preserve-3d;
@@ -13,6 +13,7 @@
   max-width: 160px; /* keeps cards reasonably large on big screens */
   min-width: 64px; /* avoids too small on very narrow screens */
   display: block;
+  container-type: inline-size;
 }
 
 @media screen and (max-width: 600px) {
@@ -25,7 +26,7 @@
 .back {
   width: 100%;
   height: 100%;
-  font-size: clamp(24px, 3vw, 64px);
+  font-size: 65cqw;
   position: absolute;
   display: flex;
   align-items: center;
@@ -53,12 +54,11 @@
   transform: rotateY(180deg);
   background-color: var(--color-accent);
   color: var(--card-front);
-  border-color: var(--color-accent-2);
+  border-color: #000000;
   box-shadow: 0 0 0 3px rgba(0,0,0,0.25) inset, 0 6px 0 rgba(0,0,0,0.25);
   cursor: default;
 }
 
-@media screen and (max-width: 500px) {
-  .front,
-  .back { font-size: clamp(18px, 3.5vw, 28px); }
+.itsAMatch .back {
+  background-color: var(--color-accent);
 }

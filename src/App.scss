@@ -6,11 +6,11 @@
 
 /*
   Retro theme variables and easy customization notes:
-  - Change the light palette in :root. Toggle dark by adding 'theme-dark' to <html>.
+  - Change the light palette in :root.
   - Font sizes use clamp() for responsive scaling across screen sizes.
 */
 
-/* Retro color variables (light defaults) */
+/* Retro color variables */
 :root {
   --color-bg-1: #f87e38; /* warm orange (used in original palette) */
   --color-bg-2: #764ba2; /* purple */
@@ -19,23 +19,9 @@
   --color-text: #0b0b0b; /* darker text for light palette */
   --card-bg: #fff4f8;
   --card-face: #ffdfe8; /* face-down color */
-  --card-front: #ffffff; /* face-up background */
+  --card-front: #ffece0; /* face-up background */
   --card-border: #f87e38;
   --muted: #3b3b3b;
-}
-
-/* Dark theme (toggle by adding class `theme-dark` to <html>) */
-.theme-dark {
-  --color-bg-1: #07070b;
-  --color-bg-2: #0f1622;
-  --color-accent: #39ff14;
-  --color-accent-2: #7bf1ff;
-  --color-text: #f6f9ff; /* bright for contrast */
-  --card-bg: #0c0c10;
-  --card-face: #121218; /* darker face-down */
-  --card-front: #0c0c10;
-  --card-border: #39ff14;
-  --muted: #9fb0a8;
 }
 
 /* Base font scaling: scales up on large screens */
