@@ -70,11 +70,13 @@ h1 {
 /* Board grid (keeps a square layout using aspect-ratio on cards) */
 .table {
   width: min(640px, 100%);
+  max-width: 55vh;
+  aspect-ratio: 1 / 1;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 12px;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 15px;
   margin-bottom: 10px;
 }
 
