@@ -50,7 +50,7 @@ export default function LandingPage({ onStartGame, onShowRanking }) {
 
   return (
     <div className="landingPage">
-      <p className="introQ">Can you find all the pairs in less than 16 moves?</p>
+      <p className="introQ">can you find all the pairs?</p>
       {renderRetroInput()}
       <div className="difficultyButtons">
         <div className="buttonContainer">

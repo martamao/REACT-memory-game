@@ -2,9 +2,9 @@ export const DIFFICULTIES = {
   /* 
     PLAN FUTURO:
     Para añadir niveles que no quepan en pantalla:
-    1. Añadir propiedad `minWidth` (ej: 800px) a cada nivel complejo aquí.
+    1. Añadir propiedad `minWidth` (ej: 800px) a cada nivel.
     2. En MemoryBoard.jsx, añadir check:
-       if (window.innerWidth < difficulty.minWidth) { ... mostrar aviso ... }
+       if (window.innerWidth < difficulty.minWidth) { mostrar aviso }
   */
   EASY: {
     name: "Easy",
@@ -13,7 +13,7 @@ export const DIFFICULTIES = {
   },
   MEDIUM: {
     name: "Medium",
-    cards: ["🌻", "🌵", "🌴", "🌱", "🌿", "🍀", "🎍", "🎋", "🌞", "☀️", "🌝", "🌞"],
+    cards: ["🌻", "🌵", "🌴", "🌱", "🌿", "🍀", "🎍", "🎋", "👩‍🏫", "☀️", "🌝", "🌞"],
     grid: "4x4",
   },
   HARD: {
@@ -23,7 +23,7 @@ export const DIFFICULTIES = {
   },
   EXPERT: {
     name: "Expert",
-    cards: ["🔵", "🔷", "🟦", "🧊", "🔹", "💧", "🧢", "🚙", "🛰️", "💎", "💙", "🧞", "🐳", "🌌", "👔", "🦕", "🪁", "🪁"],
+    cards: ["🔵", "🔷", "🟦", "🧊", "🔹", "💧", "🧢", "🚙", "🛰️", "💎", "💙", "🧞", "🐳", "🌌", "👔", "🦕", "🪁", "👮"],
     grid: "6x6",
   },
 };
