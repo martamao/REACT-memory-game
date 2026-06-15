@@ -14,7 +14,7 @@ export const DIFFICULTIES = {
   MEDIUM: {
     name: "Medium",
     cards: ["🌻", "🌵", "🌴", "🌱", "🌿", "🍀", "🎍", "🎋", "🌞", "☀️", "🌝", "🌞"],
-    grid: "4x6",
+    grid: "4x4",
   },
   HARD: {
     name: "Hard",

@@ -12,7 +12,7 @@ export default function Card({
 
   return (
     <>
-      <li
+      <div
         onClick={() => {
           if (isResetting || isVisible) return;
           onCardClick({ id, value });
@@ -30,7 +30,7 @@ export default function Card({
       >
         <div className="front">​👀</div>
         <div className="back">{value}</div>
-      </li>
+      </div>
     </>
   );
 }

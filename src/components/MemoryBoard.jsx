@@ -4,9 +4,12 @@ import Button from "./Button";
 import Message from "./Message";
 import Counter from "./Counter";
 import { useMemoryGame } from "../hooks/useMemoryGame";
-import { RESET_ANIMATION_DURATION } from "../constants";
+import { DIFFICULTIES } from "../constants";
 
 export default function MemoryBoard({ difficulty, onBackToLanding, onShowRanking, playerName }) {
+  const difficultyConfig = typeof difficulty === 'string' ? DIFFICULTIES[difficulty] : difficulty;
+  const gridClass = difficultyConfig ? `grid-${difficultyConfig.grid}` : '';
+
   const {
     cards,
     backCard,
@@ -36,7 +39,7 @@ export default function MemoryBoard({ difficulty, onBackToLanding, onShowRanking
   return (
     <>
       <Counter count={count} points={points} time={elapsedTime} />
-      <div className="table" role="grid" aria-label="Memory Game Board">
+      <div className={`table ${gridClass}`} role="grid" aria-label="Memory Game Board">
         {cards.map((card) => (
           <Card
             key={card.id}

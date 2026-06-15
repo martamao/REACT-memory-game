@@ -76,18 +76,21 @@ h1 {
 }
 
 /* Board grid */
-/* Board grid */
 .table {
   width: 100%;
-  max-width: 500px;
-  aspect-ratio: 1 / 1;
+  // Remove absolute centering if main container alignment handles it
+  // Ensure we have uniform padding around the grid
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: clamp(4px, 1vw, 12px);
-  justify-content: center;
-  margin-top: clamp(10px, 2vw, 15px);
-  margin-bottom: clamp(10px, 2vw, 15px);
+  gap: 16px; /* Aumentado de 8px para evitar superposición visual */
+  padding: 16px; /* Aumentado de 8px para espacio extra */
+  justify-items: center; /* Centrar cartas en sus celdas */
+  justify-content: center; /* Centrar grid en el contenedor */
+  align-items: center;
+  margin: 0 auto; /* Centrar el contenedor en el flujo de la página */
 }
+
+.table.grid-4x4 { grid-template-columns: repeat(4, minmax(60px, 1fr)); max-width: 500px; }
+.table.grid-6x6 { grid-template-columns: repeat(6, minmax(45px, 1fr)); max-width: 700px; }
 
 /* Make imported images look pixelated on scaling */
 img, .card img {
