@@ -105,9 +105,9 @@ img, .card img {
 
 .navContainer {
   width: 100%;
+  max-width: 500px;
   display: flex;
   justify-content: flex-start;
-  padding: 0 1rem;
 }
 
 .resultSection {
