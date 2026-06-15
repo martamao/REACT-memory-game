@@ -1,14 +1,19 @@
 import { useEffect, useState } from 'react';
 import '../styles/Ranking.scss';
 import Button from './Button';
-import { STORAGE_KEY } from '../constants';
+import { STORAGE_KEY, DIFFICULTIES } from '../constants';
 
-export default function Ranking({ onBackToGame, currentPlayerName, currentMoves, currentTime }) {
-  const [ranking, setRanking] = useState([]);
+export default function Ranking({ onBackToGame, onBackToLanding, currentPlayerName, currentMoves, currentTime, difficulty }) {
+  const [rankingData, setRankingData] = useState({});
+  const [viewAll, setViewAll] = useState(false);
 
   useEffect(() => {
-    const storedRanking = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-    setRanking(storedRanking);
+    const data = {};
+    Object.values(DIFFICULTIES).forEach(diff => {
+      const storageKey = `${STORAGE_KEY}_${diff.name.toUpperCase()}`;
+      data[diff.name] = JSON.parse(localStorage.getItem(storageKey) || '[]');
+    });
+    setRankingData(data);
   }, []);
 
   const formatTime = (seconds) => {
@@ -17,13 +22,17 @@ export default function Ranking({ onBackToGame, currentPlayerName, currentMoves,
     return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
   };
 
-  // Sort: first by moves, then by time
-  const sortedRanking = [...ranking].sort((a, b) => a.moves - b.moves || a.time - b.time).slice(0, 10);
+  const getSortedRanking = (levelName) => {
+    return [...(rankingData[levelName] || [])]
+      .sort((a, b) => a.moves - b.moves || a.time - b.time)
+      .slice(0, 5);
+  };
 
-  return (
-    <section className="ranking">
-      <h2>Top Players</h2>
-      <div className="table-container">
+  const renderTable = (levelName) => {
+    const sortedRanking = getSortedRanking(levelName);
+    return (
+      <div key={levelName} className="table-container">
+        <h3>{levelName}</h3>
         <table>
           <thead>
             <tr>
@@ -45,19 +54,32 @@ export default function Ranking({ onBackToGame, currentPlayerName, currentMoves,
               ))
             ) : (
               <tr>
-                <td colSpan="4" style={{ textAlign: 'center', padding: '20px' }}>No records yet. Be the first!</td>
+                <td colSpan="4">No records.</td>
               </tr>
             )}
           </tbody>
         </table>
       </div>
+    );
+  };
 
-      <div className="current-stats">
-        <p>Your last game ({currentPlayerName}):</p>
-        <p><strong>{currentMoves} moves</strong> in <strong>{formatTime(currentTime)}</strong></p>
+  return (
+    <section className="ranking">
+      <h2>Top Players</h2>
+      
+      {viewAll ? (
+        <div className="all-rankings-grid">
+          {Object.values(DIFFICULTIES).map(diff => renderTable(diff.name))}
+        </div>
+      ) : (
+        renderTable(difficulty?.name || Object.values(DIFFICULTIES)[0].name)
+      )}
+
+      <div className="actions">
+        {difficulty && <Button onBtnClick={() => setViewAll(!viewAll)} text={viewAll ? "Show Current" : "View All Rankings"} btnName="viewAllBtn" />}
+        {onBackToGame && <Button onBtnClick={onBackToGame} text="Back to Game" btnName="backBtn" />}
+        <Button onBtnClick={onBackToLanding} text="Go Back" btnName="goBackBtn" className="btn--go-back" />
       </div>
-
-      <Button onBtnClick={onBackToGame} text="Back to Game" btnName="backBtn" />
     </section>
   );
 }

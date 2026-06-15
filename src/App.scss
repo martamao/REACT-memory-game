@@ -76,6 +76,7 @@ h1 {
 }
 
 /* Board grid */
+/* Board grid */
 .table {
   width: 100%;
   max-width: 500px;
@@ -166,6 +167,8 @@ img, .card img {
   main:has(.table) .table {
     grid-area: board;
     width: min(72dvh, 760px, calc(100vw - 48px));
+    max-width: none;
+    max-height: none;
     margin: 0;
   }
 
@@ -200,5 +203,5 @@ img, .card img {
 
 @media screen and (max-width: 600px) {
   h1 { font-size: 22px; }
-  .table { width: 100%; gap: 8px; max-width: 420px; grid-template-columns: repeat(4, 1fr); }
+  .table { width: 100%; gap: 8px; max-width: 420px; }
 }

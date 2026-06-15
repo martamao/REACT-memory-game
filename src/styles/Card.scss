@@ -12,7 +12,7 @@
   width: 100%;
   max-width: 100%;
   min-width: 64px; /* avoids too small on very narrow screens */
-  display: block;
+  display: flex;
   container-type: inline-size;
 }
 

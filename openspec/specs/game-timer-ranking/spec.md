@@ -18,7 +18,7 @@ The game SHALL have an elapsed timer that starts only when the user explicitly s
 - **THEN** the result is not saved in the ranking
 
 ### Requirement: Ranking includes time and sorting tie-breakers
-The ranking table SHALL display the elapsed time for each saved result and SHALL order results by moves (asc) followed by time (asc).
+The ranking table SHALL display the elapsed time for each saved result and SHALL order results by moves (asc) followed by time (asc).    
 
 #### Scenario: Ranking table display
 - **WHEN** the ranking table is rendered
@@ -27,3 +27,10 @@ The ranking table SHALL display the elapsed time for each saved result and SHALL
 #### Scenario: Tie-breaker ranking
 - **WHEN** two results have the same number of moves
 - **THEN** the result with the lower elapsed time is ordered higher
+
+### Requirement: Ranking Return to Landing Page
+The ranking table SHALL provide a way to return to the landing page.
+
+#### Scenario: Return to landing page
+- **WHEN** the user is viewing the ranking table
+- **THEN** a "Go Back" button is displayed that directs the user back to the landing page

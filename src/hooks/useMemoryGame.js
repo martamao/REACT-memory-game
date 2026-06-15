@@ -1,5 +1,5 @@
 import { useEffect, useCallback, useReducer, useMemo } from "react";
-import { CARD_ARRAY, RESET_ANIMATION_DURATION, MATCH_DELAY } from "../constants";
+import { RESET_ANIMATION_DURATION, MATCH_DELAY, getBoardConfig } from "../constants";
 
 const initialState = {
   cards: [],
@@ -47,11 +47,12 @@ function gameReducer(state, action) {
   }
 }
 
-export const useMemoryGame = () => {
-  const cardArrayDuplicate = useMemo(() => [...CARD_ARRAY, ...CARD_ARRAY], []);
+export const useMemoryGame = (difficultyKey) => {
+  const boardConfig = useMemo(() => getBoardConfig(difficultyKey), [difficultyKey]);
+  const cardArray = useMemo(() => boardConfig ? [...boardConfig.cards, ...boardConfig.cards] : [], [boardConfig]);
 
   const shuffleCards = useCallback(() => {
-    const cardArrayObj = cardArrayDuplicate.map((value, index) => ({
+    const cardArrayObj = cardArray.map((value, index) => ({
       id: index,
       value,
     }));
@@ -62,24 +63,24 @@ export const useMemoryGame = () => {
     }
     
     return cardArrayObj;
-  }, [cardArrayDuplicate]);
+  }, [cardArray]);
 
   const [state, dispatch] = useReducer(gameReducer, { ...initialState, cards: shuffleCards() });
 
   useEffect(() => {
     let timer;
     // Start timer if game is started, active, not resetting, not finished, and not timed out
-    if (state.gameStarted && state.matchedCards.length < cardArrayDuplicate.length && !state.isResetting && !state.result && !state.timeout) {
+    if (state.gameStarted && state.matchedCards.length < cardArray.length && !state.isResetting && !state.result && !state.timeout) {
       timer = setInterval(() => {
         dispatch({ type: 'TICK' });
       }, 1000);
     }
     // Timeout check
-    if (state.elapsedTime >= 900 && !state.timeout) {
+    if (state.elapsedTime >= 180 && !state.timeout) {
       dispatch({ type: 'SET_TIMEOUT' });
     }
     return () => clearInterval(timer);
-  }, [state.gameStarted, state.matchedCards.length, state.isResetting, state.result, state.timeout, state.elapsedTime, cardArrayDuplicate.length]);
+  }, [state.gameStarted, state.matchedCards.length, state.isResetting, state.result, state.timeout, state.elapsedTime, cardArray.length]);
 
   const startGame = useCallback(() => {
     dispatch({ type: 'START_GAME' });
@@ -108,10 +109,10 @@ export const useMemoryGame = () => {
   }, [state.backCard]);
 
   useEffect(() => {
-    if (state.matchedCards.length === cardArrayDuplicate.length && cardArrayDuplicate.length > 0) {
+    if (state.matchedCards.length === cardArray.length && cardArray.length > 0) {
       dispatch({ type: 'SET_RESULT' });
     }
-  }, [state.matchedCards, cardArrayDuplicate.length]);
+  }, [state.matchedCards, cardArray.length]);
 
   const selectCard = (cardData) => {
     if (state.timeout || state.result) return;

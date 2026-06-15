@@ -1,8 +1,9 @@
 import { useState } from "react";
 import Button from "./Button";
+import { DIFFICULTIES } from "../constants";
 import "../styles/LandingPage.scss";
 
-export default function LandingPage({ onStartGame }) {
+export default function LandingPage({ onStartGame, onShowRanking }) {
   const [playerName, setPlayerName] = useState("");
 
   const handleInputChange = (ev) => {
@@ -25,7 +26,7 @@ export default function LandingPage({ onStartGame }) {
     const placeholders = ["_", "_", "_"];
     return (
       <div className="retroInputContainer">
-        <span className="playerLabel">Player:</span>
+        <label htmlFor="playerNameInput" className="playerLabel">Player:</label>
         <div className="lettersContainer">
           {placeholders.map((_, index) => (
             <span key={index} className="retroLetter">
@@ -34,6 +35,7 @@ export default function LandingPage({ onStartGame }) {
           ))}
         </div>
         <input
+          id="playerNameInput"
           type="text"
           value={playerName}
           onChange={handleInputChange}
@@ -50,12 +52,27 @@ export default function LandingPage({ onStartGame }) {
     <div className="landingPage">
       <p className="introQ">Can you find all the pairs in less than 16 moves?</p>
       {renderRetroInput()}
-      <Button
-        text="Let's find out!"
-        btnName="startBtn"
-        onBtnClick={() => onStartGame(playerName)}
-        disabled={isButtonDisabled}
-      />
+      <div className="difficultyButtons">
+        <div className="buttonContainer">
+          {Object.keys(DIFFICULTIES).map((levelKey) => (
+            <Button
+              key={levelKey}
+              text={DIFFICULTIES[levelKey].name}
+              btnName={`startBtn-${levelKey}`}
+              onBtnClick={() => onStartGame(playerName, levelKey)}
+              disabled={isButtonDisabled}
+              className={`btn--${levelKey.toLowerCase()}`}
+            />
+          ))}
+        </div>
+        <Button
+          text="Leaderboard"
+          btnName="leaderboardBtn"
+          onBtnClick={onShowRanking}
+          className="btn--ranking"
+        />
+      </div>
     </div>
   );
 }
+
