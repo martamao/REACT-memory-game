@@ -1,3 +1,5 @@
+@use "./styles/variables" as v;
+
 * {
   margin: 0;
   padding: 0;
@@ -22,6 +24,10 @@
   --card-front: #ffece0; /* face-up background */
   --card-border: #f87e38;
   --muted: #3b3b3b;
+  --color-difficulty-easy: #88d498;
+  --color-difficulty-medium: #fbc02d;
+  --color-difficulty-hard: #f4511e;
+  --color-difficulty-expert: #d81b60;
 }
 
 /* Base font scaling: scales up on large screens */
@@ -49,34 +55,37 @@ body::after {
   mix-blend-mode: overlay;
 }
 
+/* Base Mobile-First Layout */
 main {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  padding: 20px;
+  padding: clamp(10px, 3vw, 20px);
   width: 100%;
+  overflow-y: auto;
 }
 
 h1 {
   text-align: center;
-  font-size: clamp(22px, 2.5vw, 48px);
-  margin-bottom: 1.5rem;
+  font-size: clamp(1.5rem, 5vw, 3rem);
+  margin-bottom: clamp(1rem, 2vw, 1.5rem);
   color: var(--color-accent);
   text-shadow: 2px 2px 0 rgba(0,0,0,0.6);
 }
 
-/* Board grid (keeps a square layout using aspect-ratio on cards) */
+/* Board grid */
 .table {
-  width: min(70vmin, 720px, 100%);
+  width: 100%;
+  max-width: 500px;
   aspect-ratio: 1 / 1;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
+  gap: clamp(4px, 1vw, 12px);
   justify-content: center;
-  margin-top: 15px;
-  margin-bottom: 10px;
+  margin-top: clamp(10px, 2vw, 15px);
+  margin-bottom: clamp(10px, 2vw, 15px);
 }
 
 /* Make imported images look pixelated on scaling */
@@ -92,6 +101,13 @@ img, .card img {
   color: var(--muted);
   margin-bottom: 10px;
   text-align: center;
+}
+
+.navContainer {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  padding: 0 1rem;
 }
 
 .resultSection {
@@ -119,7 +135,12 @@ img, .card img {
 }
 
 /* Responsive adjustments */
-@media screen and (min-width: 900px) and (min-height: 640px) {
+@media screen and (min-width: v.$breakpoint-lg) and (min-height: 640px) {
+  main {
+    justify-content: center;
+    overflow-y: hidden;
+  }
+  
   main:has(.table) {
     display: grid;
     grid-template-areas:

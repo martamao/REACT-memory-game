@@ -78,7 +78,9 @@ export default function App() {
             ))}
           </div>
           
-          <Button onBtnClick={handleBackToLanding} text="GO BACK" btnName="backToLandingBtn" />
+          <div className="navContainer">
+            <Button onBtnClick={handleBackToLanding} text="GO BACK" btnName="backToLandingBtn" className="btn--nav" />
+          </div>
 
           {timeout && (
             <div className="resultSection">
@@ -93,8 +95,8 @@ export default function App() {
             <div className="resultSection">
               <Message result={result} count={count} points={points} />
               <div className="resultButtons">
-                <Button onBtnClick={handleReset} text="Reset game" btnName="resetBtn" />
-                <Button onBtnClick={handleShowRanking} text="Show Ranking" btnName="rankingBtn" />
+                <Button onBtnClick={handleReset} text="RESET" btnName="resetBtn" />
+                <Button onBtnClick={handleShowRanking} text="LEADERBOARD" btnName="rankingBtn" />
               </div>
             </div>
           )}

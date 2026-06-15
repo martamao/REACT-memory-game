@@ -6,9 +6,13 @@ Este documento centraliza los requisitos y el flujo de trabajo para el desarroll
 - **Frontend**: React JS.
 - **Backend**: Node.js, Express.js y MySQL.
 - **Idioma**: Comunicación en español. Código y aplicación íntegramente en inglés. No mezclar idiomas.
+- **Flujo de trabajo**:
+  - No ejecutar comandos de `git` ni `npm run build` a menos que sea explícitamente solicitado.
+  - Los archivos de configuración de agentes y OpenSpec no deben subirse a Git.
 
 ## Frontend
 - **Arquitectura**: Título "Memory Game" siempre visible. Gestión de vistas entre Landing, Game y Ranking.
+- **Colores (Dificultad)**: Definidos en App.scss (`--color-difficulty-easy`, `--color-difficulty-medium`, `--color-difficulty-hard`, `--color-difficulty-expert`).
 - **LandingPage**: 
     - Input tipo "Retro" para el nombre del jugador (máximo 3 letras mayúsculas). 
     - Diseño: "Player:" seguido de tres espacios destacados (`_ _ _`) que se completan al escribir.

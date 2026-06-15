@@ -17,7 +17,7 @@ export default function Ranking({ onBackToGame, currentPlayerName, currentMoves,
     return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
   };
 
-  // Ordenar: primero por movimientos, luego por tiempo
+  // Sort: first by moves, then by time
   const sortedRanking = [...ranking].sort((a, b) => a.moves - b.moves || a.time - b.time).slice(0, 10);
 
   return (
