@@ -3,17 +3,20 @@ import { useState } from "react";
 import LandingPage from "./components/LandingPage";
 import Ranking from "./components/Ranking";
 import MemoryBoard from "./components/MemoryBoard";
-import { GAME_VIEWS, STORAGE_KEY, DIFFICULTIES } from "./constants";
+import { GAME_VIEWS, DIFFICULTIES } from "./constants";
+import { rankingService } from "./services/rankingService";
 
 export default function App() {
   const [view, setView] = useState(GAME_VIEWS.LANDING);
   const [playerName, setPlayerName] = useState("");
   const [difficulty, setDifficulty] = useState(null);
+  const [startTime, setStartTime] = useState(null);
   const [gameStats, setGameStats] = useState({ count: 0, time: 0 });
   
   const handleStartGame = (name, selectedDifficulty) => {
     setPlayerName(name);
     setDifficulty(selectedDifficulty);
+    setStartTime(new Date().toISOString());
     setView(GAME_VIEWS.GAME);
   };
 
@@ -26,13 +29,7 @@ export default function App() {
     }
 
     if (difficultyToUse && difficultyToUse.name) {
-      const storageKey = `${STORAGE_KEY}_${difficultyToUse.name.toUpperCase()}`;
-      const currentRanking = JSON.parse(localStorage.getItem(storageKey) || '[]');
-      const newEntry = { name: playerName || 'Anonymous', moves: count, time: time };
-      const updatedRanking = [...currentRanking, newEntry]
-        .sort((a, b) => a.moves - b.moves || a.time - b.time)
-        .slice(0, 10);
-      localStorage.setItem(storageKey, JSON.stringify(updatedRanking));
+      rankingService.saveRanking(difficultyToUse.name, playerName || 'Anonymous', count, time, startTime);
       setGameStats({ count, time });
     }
     setView(GAME_VIEWS.RANKING);
@@ -41,6 +38,7 @@ export default function App() {
   const handleBackToLanding = () => {
     setPlayerName("");
     setDifficulty(null);
+    setStartTime(null);
     setView(GAME_VIEWS.LANDING);
   };
 
@@ -59,6 +57,7 @@ export default function App() {
           onBackToLanding={handleBackToLanding}
           onShowRanking={handleShowRanking}
           playerName={playerName}
+          startTime={startTime}
         />
       )}
 

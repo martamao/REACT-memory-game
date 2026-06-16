@@ -6,7 +6,7 @@ import Counter from "./Counter";
 import { useMemoryGame } from "../hooks/useMemoryGame";
 import { DIFFICULTIES } from "../constants";
 
-export default function MemoryBoard({ difficulty, onBackToLanding, onShowRanking, playerName }) {
+export default function MemoryBoard({ difficulty, onBackToLanding, onShowRanking, playerName, startTime }) {
   const difficultyConfig = typeof difficulty === 'string' ? DIFFICULTIES[difficulty] : difficulty;
   const gridClass = difficultyConfig ? `grid-${difficultyConfig.grid}` : '';
 
@@ -32,9 +32,9 @@ export default function MemoryBoard({ difficulty, onBackToLanding, onShowRanking
 
   useEffect(() => {
     if (result) {
-      onShowRanking(count, elapsedTime, difficulty);
+      onShowRanking(count, elapsedTime, difficulty, startTime);
     }
-  }, [result, count, elapsedTime, difficulty, onShowRanking]);
+  }, [result, count, elapsedTime, difficulty, onShowRanking, startTime]);
 
   return (
     <>

@@ -15,12 +15,6 @@ export default function LandingPage({ onStartGame, onShowRanking }) {
 
   const isButtonDisabled = playerName.length !== 3;
 
-  const handleKeyDown = (ev) => {
-    if (ev.key === "Enter" && !isButtonDisabled) {
-      onStartGame(playerName);
-    }
-  };
-
   const renderRetroInput = () => {
     const letters = playerName.split("");
     const placeholders = ["_", "_", "_"];
@@ -39,7 +33,6 @@ export default function LandingPage({ onStartGame, onShowRanking }) {
           type="text"
           value={playerName}
           onChange={handleInputChange}
-          onKeyDown={handleKeyDown}
           className="hiddenInput"
           maxLength={3}
           autoFocus

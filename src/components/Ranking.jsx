@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import '../styles/Ranking.scss';
 import Button from './Button';
-import { STORAGE_KEY, DIFFICULTIES } from '../constants';
+import { DIFFICULTIES } from '../constants';
+import { rankingService } from '../services/rankingService';
 
 export default function Ranking({ onBackToGame, onBackToLanding, currentPlayerName, currentMoves, currentTime, difficulty }) {
   const [rankingData, setRankingData] = useState({});
@@ -10,8 +11,7 @@ export default function Ranking({ onBackToGame, onBackToLanding, currentPlayerNa
   useEffect(() => {
     const data = {};
     Object.values(DIFFICULTIES).forEach(diff => {
-      const storageKey = `${STORAGE_KEY}_${diff.name.toUpperCase()}`;
-      data[diff.name] = JSON.parse(localStorage.getItem(storageKey) || '[]');
+      data[diff.name] = rankingService.getRanking(diff.name);
     });
     setRankingData(data);
   }, []);
