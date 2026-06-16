@@ -10,7 +10,7 @@ export default function Counter({ count, points, time }) {
   return (
     <div className="counterSection">
       <p>Moves: {count}</p>
-      <p>Points: {points}</p>
+     {/** <p>Points: {points}</p>*/} 
       <p>Time: {formatTime(time)}</p>
     </div>
   );
