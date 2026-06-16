@@ -59,7 +59,7 @@ export default function LandingPage({ onStartGame, onShowRanking }) {
           ))}
         </div>
         <Button
-          text="Leaderboard"
+          text="LEADERBOARD"
           btnName="leaderboardBtn"
           onBtnClick={onShowRanking}
           className="btn--ranking"

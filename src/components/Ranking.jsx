@@ -75,7 +75,7 @@ export default function Ranking({ onBackToBoard, onBackToLanding, currentPlayerN
       case MODES.PLAYER:
         return (
           <div className="actions">
-            <Button onBtnClick={() => setRankingMode(MODES.GLOBAL)} text="View All" btnName="viewAllBtn" />
+            <Button onBtnClick={() => setRankingMode(MODES.GLOBAL)} text="SHOW All" btnName="viewAllBtn" />
             {onBackToBoard && <Button onBtnClick={onBackToBoard} text="PLAY AGAIN" btnName="backBtn" />}
             <Button onBtnClick={onBackToLanding} text="CHOOSE LEVEL" btnName="goBackBtn" className="btn--go-back" />
           </div>
@@ -83,7 +83,7 @@ export default function Ranking({ onBackToBoard, onBackToLanding, currentPlayerN
       case MODES.GLOBAL:
         return (
           <div className="actions">
-            {difficulty && <Button onBtnClick={() => setRankingMode(MODES.PLAYER)} text="My Ranking" btnName="viewAllBtn" />}
+            {difficulty && <Button onBtnClick={() => setRankingMode(MODES.PLAYER)} text="SHOW MY RANKING" btnName="viewAllBtn" />}
             <Button onBtnClick={onBackToLanding} text="CHOOSE LEVEL" btnName="goBackBtn" className="btn--go-back" />
           </div>
         );
@@ -95,7 +95,14 @@ export default function Ranking({ onBackToBoard, onBackToLanding, currentPlayerN
   return (
     <section className={`ranking ranking--${rankingMode.toLowerCase()}`}>
       <h2>Top Players</h2>
-      
+
+      {rankingMode === MODES.PLAYER && (
+        <div className="current-stats">
+          <p>Your last game ({currentPlayerName}):</p>
+          <p><strong>{currentMoves} moves</strong> in <strong>{formatTime(currentTime)}</strong></p>
+        </div>
+      )}
+
       {rankingMode === MODES.GLOBAL ? (
         <div className="all-rankings-grid">
           {Object.values(DIFFICULTIES).map(diff => renderTable(diff.name))}

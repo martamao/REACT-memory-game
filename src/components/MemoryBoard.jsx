@@ -65,7 +65,7 @@ export default function MemoryBoard({ difficulty, onBackToLanding, onShowRanking
           <Message result={result} count={count} points={points} />
           <div className="resultButtons">
             <Button onBtnClick={handleReset} text="PLAY AGAIN" btnName="resetBtn" />
-            <Button onBtnClick={() => onShowRanking(count, elapsedTime, difficulty, startTime)} text="VIEW RANKING" btnName="rankingBtn" />
+            <Button onBtnClick={() => onShowRanking(count, elapsedTime, difficulty, startTime)} text="LEADERBOARD" btnName="rankingBtn" />
           </div>
         </div>
       )}
