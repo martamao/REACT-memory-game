@@ -23,7 +23,7 @@ export default function App() {
   const handleShowRanking = (count, time, finishedDifficulty) => {
     let difficultyToUse = finishedDifficulty || difficulty;
     
-    // Si recibimos un string (ej: 'EASY'), buscamos el objeto en DIFFICULTIES
+    // Aseguramos que siempre sea el objeto completo
     if (typeof difficultyToUse === 'string') {
         difficultyToUse = Object.values(DIFFICULTIES).find(d => d.name.toUpperCase() === difficultyToUse.toUpperCase());
     }
@@ -31,6 +31,7 @@ export default function App() {
     if (difficultyToUse && difficultyToUse.name) {
       rankingService.saveRanking(difficultyToUse.name, playerName || 'Anonymous', count, time, startTime);
       setGameStats({ count, time });
+      setDifficulty(difficultyToUse); // Actualizamos el estado con el objeto completo
     }
     setView(GAME_VIEWS.RANKING);
   };

@@ -108,7 +108,7 @@ export default function Ranking({ onBackToBoard, onBackToLanding, currentPlayerN
           {Object.values(DIFFICULTIES).map(diff => renderTable(diff.name))}
         </div>
       ) : (
-        renderTable(difficulty?.name || Object.values(DIFFICULTIES)[0].name)
+        renderTable(difficulty?.name)
       )}
 
       {renderActions()}
