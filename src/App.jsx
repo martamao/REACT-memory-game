@@ -63,7 +63,7 @@ export default function App() {
 
       {view === GAME_VIEWS.RANKING && (
         <Ranking 
-          onBackToGame={difficulty ? () => setView(GAME_VIEWS.GAME) : null} 
+          onBackToBoard={difficulty ? () => setView(GAME_VIEWS.GAME) : null} 
           onBackToLanding={handleBackToLanding}
           currentPlayerName={playerName}
           currentMoves={gameStats.count}

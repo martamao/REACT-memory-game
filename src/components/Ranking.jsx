@@ -4,9 +4,16 @@ import Button from './Button';
 import { DIFFICULTIES } from '../constants';
 import { rankingService } from '../services/rankingService';
 
-export default function Ranking({ onBackToGame, onBackToLanding, currentPlayerName, currentMoves, currentTime, difficulty }) {
+export default function Ranking({ onBackToBoard, onBackToLanding, currentPlayerName, currentMoves, currentTime, difficulty }) {
   const [rankingData, setRankingData] = useState({});
-  const [viewAll, setViewAll] = useState(false);
+  const MODES = {
+    GLOBAL: 'GLOBAL',
+    PLAYER: 'PLAYER'
+  };
+
+  const determineMode = (diff) => (diff ? MODES.PLAYER : MODES.GLOBAL);
+
+  const [rankingMode, setRankingMode] = useState(determineMode(difficulty));
 
   useEffect(() => {
     const data = {};
@@ -63,11 +70,33 @@ export default function Ranking({ onBackToGame, onBackToLanding, currentPlayerNa
     );
   };
 
+  const renderActions = () => {
+    switch (rankingMode) {
+      case MODES.PLAYER:
+        return (
+          <div className="actions">
+            <Button onBtnClick={() => setRankingMode(MODES.GLOBAL)} text="View All" btnName="viewAllBtn" />
+            {onBackToBoard && <Button onBtnClick={onBackToBoard} text="PLAY AGAIN" btnName="backBtn" />}
+            <Button onBtnClick={onBackToLanding} text="CHOOSE LEVEL" btnName="goBackBtn" className="btn--go-back" />
+          </div>
+        );
+      case MODES.GLOBAL:
+        return (
+          <div className="actions">
+            {difficulty && <Button onBtnClick={() => setRankingMode(MODES.PLAYER)} text="My Ranking" btnName="viewAllBtn" />}
+            <Button onBtnClick={onBackToLanding} text="CHOOSE LEVEL" btnName="goBackBtn" className="btn--go-back" />
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
-    <section className="ranking">
+    <section className={`ranking ranking--${rankingMode.toLowerCase()}`}>
       <h2>Top Players</h2>
       
-      {viewAll ? (
+      {rankingMode === MODES.GLOBAL ? (
         <div className="all-rankings-grid">
           {Object.values(DIFFICULTIES).map(diff => renderTable(diff.name))}
         </div>
@@ -75,11 +104,7 @@ export default function Ranking({ onBackToGame, onBackToLanding, currentPlayerNa
         renderTable(difficulty?.name || Object.values(DIFFICULTIES)[0].name)
       )}
 
-      <div className="actions">
-        {difficulty && <Button onBtnClick={() => setViewAll(!viewAll)} text={viewAll ? "Show Current" : "View All Rankings"} btnName="viewAllBtn" />}
-        {onBackToGame && <Button onBtnClick={onBackToGame} text="Back to Game" btnName="backBtn" />}
-        <Button onBtnClick={onBackToLanding} text="Go Back" btnName="goBackBtn" className="btn--go-back" />
-      </div>
+      {renderActions()}
     </section>
   );
 }

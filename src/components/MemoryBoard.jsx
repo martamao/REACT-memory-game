@@ -30,12 +30,6 @@ export default function MemoryBoard({ difficulty, onBackToLanding, onShowRanking
     startGame();
   }, [startGame]);
 
-  useEffect(() => {
-    if (result) {
-      onShowRanking(count, elapsedTime, difficulty, startTime);
-    }
-  }, [result, count, elapsedTime, difficulty, onShowRanking, startTime]);
-
   return (
     <>
       <Counter count={count} points={points} time={elapsedTime} />
@@ -61,7 +55,7 @@ export default function MemoryBoard({ difficulty, onBackToLanding, onShowRanking
         <div className="resultSection">
           <Message timeout={timeout} />
           <div className="resultButtons">
-            <Button onBtnClick={handleReset} text="Reset game" btnName="resetBtn" />
+            <Button onBtnClick={handleReset} text="PLAY AGAIN" btnName="resetBtn" />
           </div>
         </div>
       )}
@@ -70,7 +64,8 @@ export default function MemoryBoard({ difficulty, onBackToLanding, onShowRanking
         <div className="resultSection">
           <Message result={result} count={count} points={points} />
           <div className="resultButtons">
-            <Button onBtnClick={handleReset} text="RESET" btnName="resetBtn" />
+            <Button onBtnClick={handleReset} text="PLAY AGAIN" btnName="resetBtn" />
+            <Button onBtnClick={() => onShowRanking(count, elapsedTime, difficulty, startTime)} text="VIEW RANKING" btnName="rankingBtn" />
           </div>
         </div>
       )}

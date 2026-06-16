@@ -8,6 +8,10 @@
   margin: 0 auto;
   animation: fadeIn 0.5s ease-out;
 
+  &--global {
+    max-width: 800px;
+  }
+
   h2 {
     font-size: 2rem;
     color: #ffcc00;
@@ -47,6 +51,27 @@
       tr:nth-child(1) td:first-child { color: gold; font-weight: bold; }
       tr:nth-child(2) td:first-child { color: silver; font-weight: bold; }
       tr:nth-child(3) td:first-child { color: #cd7f32; font-weight: bold; }
+    }
+  }
+
+  .all-rankings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    width: 100%;
+
+    @media (min-width: 450px) {
+      flex-direction: row;
+      justify-content: center;
+      gap: 1rem;
     }
   }
 
