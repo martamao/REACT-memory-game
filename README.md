@@ -4,23 +4,24 @@ Este es mi primer proyecto utilizando **React**, como parte del contenido del M�
 
 El diseño y la estructura inicial del proyecto se basaron en una propuesta de **Adalab**, pero el diseño retro actual es una iniciativa propia, buscando una estética más personal y divertida. El backend se encuentra actualmente en desarrollo, pero estará disponible muy muy muy pronto.
 
-Se trata de un juego clásico de encontrar parejas de cartas en un tablero de 4x4.
+Se trata de un juego clásico de encontrar parejas de cartas en tableros de distintas dificultades.
 
 **Te recomiendo que pruebes el proyecto, ¡te enganchará!**
 
 🔗 https://idontwanttobeanurseanymore.github.io/react-memory-game/
 
-¿Serás capaz de encontrar todas las parejas en el menor tiempo posible y clasificarte en el **TOP 10**?
+¿Serás capaz de encontrar todas las parejas en el menor tiempo posible y clasificarte en el **TOP 5**?
 
 ---
 
 ## ✨ Características Principales 
 
-- **🃏 Tablero 4x4**: El reto clásico de encontrar 8 parejas.
+- **🃏 Tablero**: El reto clásico de encontrar parejas.
+- **⚡ Niveles**: Existen 4 niveles de dificultad.
 - **📱 Diseño Responsive**: Experiencia optimizada para móviles y escritorio.
 - **🎮 Estética Retro**: Inspirado en las consolas de 8 y 16 bits, con fuentes pixeladas y colores vibrantes.
 - **🚀 Pantalla de Inicio**: Landing page personalizada con entrada de nombre de usuario.
-- **🏆 Sistema de Ranking**: Top 10 local (guardado en `localStorage`) que registra movimientos y tiempo.
+- **🏆 Sistema de Ranking**: Top 5 local (guardado en `localStorage`) que registra movimientos y tiempo.
 
 ---
 
@@ -38,9 +39,9 @@ Se trata de un juego clásico de encontrar parejas de cartas en un tablero de 4x
 
 1. **Inicio**: Escribe tu nombre de usuario en la página principal para comenzar.
 2. **El Reto**: Voltea 2 cartas por turno. Si coinciden, permanecen visibles; si no, se ocultan tras un breve instante.
-3. **El Tiempo**: El cronómetro comienza en cuanto entras al tablero. ¡Sé rápido!
-4. **Victoria**: El juego termina cuando encuentras las 8 parejas.
-5. **Ranking**: Al ganar, podrás ver tu puntuación y comprobar si has entrado en el Top 10 basándote en el número de movimientos y el tiempo empleado.
+3. **El Tiempo**: El cronómetro comienza en cuanto entras al tablero. ¡Sé rápido, tienes 3 minutos!
+4. **Victoria**: El juego termina cuando encuentras todas las parejas.
+5. **Ranking**: Al ganar, podrás ver tu puntuación y comprobar si has entrado en el Top 5 basándote en el número de movimientos y el tiempo empleado.
 
 ---
 
@@ -80,7 +81,6 @@ src/
 ## 🔮 Futuras funcionalidades
 
 - **Backend (Express + MySQL)**: Persistencia global del ranking y autenticación simple.
-- **Dificultad**: Niveles configurables (más cartas, tiempo límite).
 - **Sonidos**: Efectos de sonido retro para mejorar la inmersión.
 
 ---
