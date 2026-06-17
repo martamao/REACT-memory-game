@@ -1,0 +1,29 @@
+:root {
+  /* Paleta Base */
+  --color-brand-primary: #f87e38;
+  --color-brand-secondary: #764ba2;
+  --color-accent-mint: #33f49a;
+  --color-accent-pink: #ff5c9e;
+
+  /* UI Base */
+  --color-text-main: #0b0b0b;
+  --color-text-muted: #3b3b3b;
+  --color-bg-card-default: #fff4f8;
+  --color-bg-card-face-down: #ffdfe8;
+  --color-bg-card-face-up: #ffece0;
+  --color-border-main: #000000;
+  --color-shadow-default: rgba(0, 0, 0, 0.45);
+
+  /* Dificultades */
+  --color-diff-easy: #88d498;
+  --color-diff-medium: #fbc02d;
+  --color-diff-hard: #f4511e;
+  --color-diff-expert: #d81b60;
+
+  /* Ranking y Medallas */
+  --color-ranking-highlight: #ffcc00;
+  --color-ranking-bg: rgba(0, 0, 0, 0.7);
+  --color-medal-gold: gold;
+  --color-medal-silver: silver;
+  --color-medal-bronze: #cd7f32;
+}

@@ -1,4 +1,5 @@
 @use "./styles/variables" as v;
+@use "./styles/colors";
 
 * {
   margin: 0;
@@ -6,33 +7,13 @@
   box-sizing: border-box;
 }
 
-
-
-/* Retro color variables */
-:root {
-  --color-bg-1: #f87e38; /* warm orange (used in original palette) */
-  --color-bg-2: #764ba2; /* purple */
-  --color-accent: #33f49a; /* mint */
-  --color-accent-2: #ff5c9e; /* pink */
-  --color-text: #0b0b0b; /* darker text for light palette */
-  --card-bg: #fff4f8;
-  --card-face: #ffdfe8; /* face-down color */
-  --card-front: #ffece0; /* face-up background */
-  --card-border: #f87e38;
-  --muted: #3b3b3b;
-  --color-difficulty-easy: #88d498;
-  --color-difficulty-medium: #fbc02d;
-  --color-difficulty-hard: #f4511e;
-  --color-difficulty-expert: #d81b60;
-}
-
 /* Base font scaling: scales up on large screens */
 html { font-size: clamp(14px, 1.2vw + 12px, 18px); }
 
 /* Global body / layout */
 body {
-  color: var(--color-text);
-  background: linear-gradient(135deg, var(--color-bg-1) 0%, var(--color-bg-2) 60%);
+  color: var(--color-text-main);
+  background: linear-gradient(135deg, var(--color-brand-primary) 0%, var(--color-brand-secondary) 60%);
   min-height: 100vh;
   font-family: 'Press Start 2P', 'Crafty Girls', monospace, system-ui;
   -webkit-font-smoothing: antialiased;
@@ -67,15 +48,13 @@ h1 {
   text-align: center;
   font-size: clamp(1.5rem, 5vw, 3rem);
   margin-bottom: clamp(1rem, 2vw, 1.5rem);
-  color: var(--color-accent);
+  color: var(--color-accent-mint);
   text-shadow: 2px 2px 0 rgba(0,0,0,0.6);
 }
 
 /* Board grid */
 .table {
   width: 100%;
-  // Remove absolute centering if main container alignment handles it
-  // Ensure we have uniform padding around the grid
   display: grid;
   gap: 16px; /* Aumentado de 8px para evitar superposición visual */
   padding: 16px; /* Aumentado de 8px para espacio extra */
@@ -98,7 +77,7 @@ img, .card img {
 }
 
 .introQ {
-  color: var(--muted);
+  color: var(--color-text-muted);
   margin-bottom: 10px;
   text-align: center;
 }
@@ -131,7 +110,7 @@ img, .card img {
   align-items: center;
   gap: 2rem;
   margin-top: 3rem;
-  color: var(--muted);
+  color: var(--color-text-muted);
 }
 
 /* Responsive adjustments */
