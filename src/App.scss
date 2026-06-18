@@ -52,20 +52,62 @@ h1 {
   text-shadow: 2px 2px 0 rgba(0,0,0,0.6);
 }
 
-/* Board grid */
+/* Board flex container */
 .table {
   width: 100%;
-  display: grid;
-  gap: 16px; /* Aumentado de 8px para evitar superposición visual */
-  padding: 16px; /* Aumentado de 8px para espacio extra */
-  justify-items: center; /* Centrar cartas en sus celdas */
-  justify-content: center; /* Centrar grid en el contenedor */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 8px;
+  justify-content: center;
   align-items: center;
-  margin: 0 auto; /* Centrar el contenedor en el flujo de la página */
+  margin: 0 auto;
 }
 
-.table.grid-4x4 { grid-template-columns: repeat(4, minmax(60px, 1fr)); max-width: 500px; }
-.table.grid-6x6 { grid-template-columns: repeat(6, minmax(45px, 1fr)); max-width: 700px; }
+/* Card sizing (Mobile-First) */
+.table > .card {
+  aspect-ratio: 1 / 1;
+  /* Default card size (8-16 cards) */
+  flex: 0 0 calc(25% - 6px); 
+  min-width: 40px;
+}
+
+/* Higher density (Hard/Expert - 6x6) */
+.table.grid-6x6 > .card {
+  flex: 0 0 calc(16.66% - 7px); /* Default (Larger screens) */
+}
+
+/* Mobile override for Hard/Expert: 4 columns, smaller cards to fit all 9 rows entirely on screen */
+@media screen and (max-width: 600px) {
+  .table.grid-6x6 {
+    gap: 4px;
+    padding: 4px;
+  }
+  .table.grid-6x6 > .card {
+    /* Reduce to 20% to make them smaller, maintaining 4 columns */
+    flex: 0 0 calc(21.5% - 4px); 
+    aspect-ratio: 1 / 1;
+  }
+}
+
+
+
+/* Large screens (>= 1024px): 9x4 layout for Hard/Expert */
+@media screen and (min-width: 1024px) {
+  .table.grid-4x4 {
+    gap: 8px;
+    padding: 8px;
+    width:50%
+  }
+  .table.grid-4x4 > .card {
+    flex: 0 0 calc(25% - 8px);
+    //max-width: 80px;
+   
+  }
+  .table.grid-6x6 > .card {
+    flex: 0 0 calc(11.11% - 8px); /* 9 columns */
+  }
+}
 
 /* Make imported images look pixelated on scaling */
 img, .card img {
@@ -114,71 +156,6 @@ img, .card img {
 }
 
 /* Responsive adjustments */
-@media screen and (min-width: v.$breakpoint-lg) and (min-height: 640px) {
-  main {
-    justify-content: center;
-    overflow-y: hidden;
-  }
-  
-  main:has(.table) {
-    display: grid;
-    grid-template-areas:
-      "title"
-      "counter"
-      "board";
-    grid-template-columns: minmax(0, 1fr);
-    align-content: center;
-    justify-items: center;
-    gap: 0.85rem;
-    padding: 24px;
-  }
-
-  main:has(.table) h1 {
-    grid-area: title;
-    margin-bottom: 0;
-  }
-
-  main:has(.table) .counterSection {
-    grid-area: counter;
-  }
-
-  main:has(.table) .table {
-    grid-area: board;
-    width: min(72dvh, 760px, calc(100vw - 48px));
-    max-width: none;
-    max-height: none;
-    margin: 0;
-  }
-
-  main:has(.table):has(.resultSection) {
-    grid-template-areas:
-      "title title"
-      "counter counter"
-      "board result";
-    grid-template-columns: minmax(420px, auto) minmax(220px, 320px);
-    column-gap: clamp(24px, 4vw, 64px);
-  }
-
-  main:has(.table):has(.resultSection) .table {
-    width: min(68dvh, 760px, 58vw);
-    justify-self: end;
-  }
-
-  main:has(.table) .resultSection {
-    grid-area: result;
-    align-self: center;
-    justify-self: start;
-    max-width: 320px;
-    margin-top: 0;
-  }
-
-  main:has(.table) .resultButtons {
-    flex-direction: column;
-    align-items: stretch;
-    width: 100%;
-  }
-}
-
 @media screen and (max-width: 600px) {
   h1 { font-size: 22px; }
   .table { width: 100%; gap: 8px; max-width: 420px; }
