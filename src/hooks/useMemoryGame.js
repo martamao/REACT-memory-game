@@ -17,7 +17,7 @@ const initialState = {
 function gameReducer(state, action) {
   switch (action.type) {
     case 'RESET_START':
-      return { ...state, isResetting: true, backCard: [], matchedCards: [], result: false, elapsedTime: 0, timeout: false, gameStarted: false };
+      return { ...state, isResetting: true, backCard: [], matchedCards: [], result: false, elapsedTime: 0, timeout: false, gameStarted: true };
     case 'RESET_COMPLETE':
       return { ...state, cards: action.cards, count: 0, points: 0, isResetting: false };
     case 'START_GAME':

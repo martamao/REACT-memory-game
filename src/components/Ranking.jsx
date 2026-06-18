@@ -4,7 +4,7 @@ import Button from './Button';
 import { DIFFICULTIES } from '../constants';
 import { rankingService } from '../services/rankingService';
 
-export default function Ranking({ onBackToBoard, onBackToLanding, currentPlayerName, currentMoves, currentTime, difficulty }) {
+export default function Ranking({ onBackToBoard, handleReset, onBackToLanding, currentPlayerName, currentMoves, currentTime, difficulty }) {
   const [rankingData, setRankingData] = useState({});
   const MODES = {
     GLOBAL: 'GLOBAL',
@@ -76,7 +76,7 @@ export default function Ranking({ onBackToBoard, onBackToLanding, currentPlayerN
         return (
           <div className="actions">
             <Button onBtnClick={() => setRankingMode(MODES.GLOBAL)} text="SHOW All" btnName="viewAllBtn" />
-            {onBackToBoard && <Button onBtnClick={onBackToBoard} text="PLAY AGAIN" btnName="backBtn" />}
+            {onBackToBoard && <Button onBtnClick={handleReset} text="PLAY AGAIN" btnName="backBtn" />}
             <Button onBtnClick={onBackToLanding} text="CHOOSE LEVEL" btnName="goBackBtn" className="btn--go-back" />
           </div>
         );
