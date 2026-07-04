@@ -1,12 +1,10 @@
 import express from "express";
 import mysql from "mysql2/promise";
-import path from "node:path";
-import cors from "cors"
-import 'dotenv/config';
+import cors from "cors";
+import "dotenv/config";
 
-//Configuración BD
-
-const getConexion= async () => {
+//CONFIGURACIÓN BD
+const getConexion = async () => {
   const datosConexion = {
     host: process.env.MYSQL_HOST,
     port: process.env.MYSQL_PORT,
@@ -17,164 +15,159 @@ const getConexion= async () => {
 
   const conexion = await mysql.createConnection(datosConexion);
   await conexion.connect();
-  return conexion
-}
-// Configurar el servidor
+  return conexion;
+};
 
+//COMPROBAR CONEXIÓN
+const checkDBConnection = async () => {
+  try {
+    const conexion = await getConexion();
+    console.log("✅ Conexión a la BD correcta");
+    await conexion.end();
+  } catch (error) {
+    console.error("❌ Error de conexión a la BD:", error.message);
+  }
+};
+
+//SERVIDOR
 const server = express();
 
-// Configuración para que funcione como API RESTful (json)
-server.use(cors()); // API pública
+server.use(cors());
 server.use(express.json({ limit: "25Mb" }));
 
-// Arrancamos express
+//ARRANQUE
+const port = process.env.PORT || 4000;
 
-const port = process.env.PORT;
-server.listen(port, () => {
-  console.log(`El servidor se ha iniciado en <http://localhost:${port}/>`);
+server.listen(port, async () => {
+  console.log(`🚀 Servidor iniciado en http://localhost:${port}`);
+  await checkDBConnection();
 });
 
-// Configurar endpoints
+//ENDPOINTS
 
-// API
 server.get("/", (req, res) => {
-  res.send("Ok");
+  res.send("API Memory Game OK");
 });
 
+//GET RANKING
 server.get("/api/memoryboard", async (req, res) => {
-    console.log(req.query);
+  let conexion;
 
-  const player = req.query.playerName || "";
-  // 1. Nos conectamos con la bbdd
-  const conexion = await getConexion();
+  try {
+    conexion = await getConexion();
 
-  // 2. Preparamos una query = SELECT
-  const queryMemoryBoardAllData = `
-   SELECT * 
-    FROM memory_game.game_ranking r
-    ORDER BY game_moves
-    LIMIT 5;`;
+    const query = `
+      SELECT player_name, game_moves, game_time, difficulty
+      FROM game_ranking
+      ORDER BY difficulty, game_moves ASC;
+    `;
 
-  // 3. Lanzamos la query y nos quedamos con los resultados
-  const [resultados] = await conexion.query(queryMemoryBoard);
+    const [results] = await conexion.query(query);
 
-  // 4. Cerramos la conexión.
-  await conexion.end();
-
-  // 5. Responder con los datos
-  res.json(resultados);
+    res.status(200).json({
+      success: true,
+      data: results,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Error al obtener ranking",
+    });
+  } finally {
+    if (conexion) await conexion.end();
+  }
 });
 
-
+//POST GAME
 server.post("/api/memoryboard", async (req, res) => {
   let conexion;
 
- 
   try {
-    //1. Conectamos a BD
+    const {
+      player_name,
+      game_moves,
+      game_time,
+      game_date,
+      game_pairs,
+      difficulty,
+    } = req.body;
+
+    if (
+      !player_name ||
+      game_moves === undefined ||
+      game_time === undefined ||
+      !game_date ||
+      game_pairs === undefined ||
+      !difficulty
+    ) {
+      return res.status(400).json({
+        success: false,
+        message: "Faltan campos obligatorios",
+      });
+    }
+
+    if (typeof player_name !== "string" || player_name.trim() === "") {
+      return res.status(400).json({
+        success: false,
+        message: "player_name debe ser texto válido",
+      });
+    }
+
+    if (isNaN(game_moves) || isNaN(game_time) || isNaN(game_pairs)) {
+      return res.status(400).json({
+        success: false,
+        message: "game_moves, game_time y game_pairs deben ser números",
+      });
+    }
+
     conexion = await getConexion();
 
-    //2. Preparamos INSERT
-    const insertNewGame = `
-    INSERT INTO memory_game.game_ranking r (id_game, player_name, game_moves, game_time, game_date, game_pairs, difficulty) 
-    VALUES (?, ?, ?, ?, ?, ?, ?);
+    const insertQuery = `
+      INSERT INTO game_ranking
+      (player_name, game_moves, game_time, game_date, game_pairs, difficulty)
+      VALUES (?, ?, ?, ?, ?, ?);
     `;
 
-    // 3. Lanzamos insert y guardamos resultados
-    const [resultsInsert] = await conexion.execute(insertNewGame, [
-      req.body.id_game,
-      req.body.player_game,
-      req.body.game_moves,
-      req.body.game_time,
-      req.body.game_date,
-      req.body.game_pairs,
-      req.body.difficulty,
-    ])
+    const [result] = await conexion.execute(insertQuery, [
+      player_name,
+      game_moves,
+      game_time,
+      game_date,
+      game_pairs,
+      difficulty,
+    ]);
 
-    // 5. Responder con los datos
-    if (resultsInsert.affectedRows === 1) {
-      res.json({
+    if (result.affectedRows === 1) {
+      res.status(201).json({
         success: true,
         data: {
-          id: resultsInsert.insertId,
+          //   id: result.insertId,
           ...req.body,
         },
       });
-    }  else {
-      res.json({ success: false });
-    }
-  } catch (error) {
-    res.status(500).json({ success: false, error: error });
-  } finally {
-    
-    // 4. Cerramos la conexión.
-    if (conexion) {
-      await conexion.end();
-    }
-
-  }
-});
-
-
-server.get(/.*/, (req, res) => {
-
-  res.status(404).send("Página no encontrada.");
-});
-
-server.use(express.static("./FRONTEND"));
-
-
-
-
-
-
-
-
-/*
-async function getRanking() {
-  const playerName = "MRT";
-  const playerMoves = "17";;
-  const playerTime = "time"
-
-  try {
-    const conexion = await getConexion();
-
-    const [resultados] = await conexion.query(
-      `
-      SELECT id_game, player_name, game_moves, game_time, game_date, game_pairs
-        FROM game_ranking
-      `,
-      [playerName, playerMoves, playerTime],
-    );
-
-    conexion.end();
-
-    console.log(resultados);
-  } catch (error) {
-    console.error("Oh no!");
-    console.error(error);
-  }
-}
-
-getRanking();
-
-mysql
-  .createConnection(datosConexion)
-  .then((conexion) => {
-    console.info("Sa conectao!");
-
-    conexion
-      .query(
-        "SELECT id,nombre FROM 
-         LIMIT 2;",
-      )
-      .then(([resultados]) => {
-        console.log(resultados);
+    } else {
+      res.status(400).json({
+        success: false,
+        message: "No se pudo guardar la partida",
       });
+    }
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Error al guardar la partida",
+    });
+  } finally {
+    if (conexion) await conexion.end();
+  }
+});
 
-  })
-  .catch((error) => {
-    console.error("Oh no!");
-    console.error(error);
+//404
+server.use((req, res) => {
+  res.status(404).json({
+    success: false,
+    message: "Página no encontrada",
   });
-*/
+});
+
+//STATIC
+server.use(express.static("./FRONTEND"));
