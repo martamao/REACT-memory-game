@@ -8,6 +8,7 @@
     "start": "node src/index.js",
     "dev": "vite",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "vite build",
     "deploy": "vite build --emptyOutDir && git add . && git commit -m \"Deploy new version\" && git push"
   },
   "dependencies": {

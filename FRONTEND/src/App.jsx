@@ -12,7 +12,7 @@ export default function App() {
   const [difficulty, setDifficulty] = useState(null);
   const [startTime, setStartTime] = useState(null);
   const [gameStats, setGameStats] = useState({ count: 0, time: 0 });
-  
+
   const handleStartGame = (name, selectedDifficulty) => {
     setPlayerName(name);
     setDifficulty(selectedDifficulty);
@@ -20,19 +20,28 @@ export default function App() {
     setView(GAME_VIEWS.GAME);
   };
 
-  const handleShowRanking = (count, time, finishedDifficulty) => {
+  const handleShowRanking = async (count, time, finishedDifficulty) => {
     let difficultyToUse = finishedDifficulty || difficulty;
-    
-    // Aseguramos que siempre sea el objeto completo
-    if (typeof difficultyToUse === 'string') {
-        difficultyToUse = Object.values(DIFFICULTIES).find(d => d.name.toUpperCase() === difficultyToUse.toUpperCase());
+
+    if (typeof difficultyToUse === "string") {
+      difficultyToUse = Object.values(DIFFICULTIES).find(
+        (d) => d.name.toUpperCase() === difficultyToUse.toUpperCase(),
+      );
     }
 
     if (difficultyToUse && difficultyToUse.name) {
-      rankingService.saveRanking(difficultyToUse.name, playerName || 'Anonymous', count, time, startTime);
+      await rankingService.saveRanking(
+        difficultyToUse.name,
+        playerName || "Anonymous",
+        count,
+        time,
+        startTime,
+      );
+
       setGameStats({ count, time });
-      setDifficulty(difficultyToUse); // Actualizamos el estado con el objeto completo
+      setDifficulty(difficultyToUse);
     }
+
     setView(GAME_VIEWS.RANKING);
   };
 
@@ -48,11 +57,14 @@ export default function App() {
       <h1>Memory Game</h1>
 
       {view === GAME_VIEWS.LANDING && (
-        <LandingPage onStartGame={handleStartGame} onShowRanking={() => setView(GAME_VIEWS.RANKING)} />
+        <LandingPage
+          onStartGame={handleStartGame}
+          onShowRanking={() => setView(GAME_VIEWS.RANKING)}
+        />
       )}
 
       {view === GAME_VIEWS.GAME && difficulty && (
-        <MemoryBoard 
+        <MemoryBoard
           key={difficulty.name}
           difficulty={difficulty}
           onBackToLanding={handleBackToLanding}
@@ -63,8 +75,9 @@ export default function App() {
       )}
 
       {view === GAME_VIEWS.RANKING && (
-        <Ranking 
-          onBackToBoard={difficulty ? () => setView(GAME_VIEWS.GAME) : null} 
+        <Ranking
+          key={difficulty?.name}
+          onBackToBoard={difficulty ? () => setView(GAME_VIEWS.GAME) : null}
           onBackToLanding={handleBackToLanding}
           currentPlayerName={playerName}
           currentMoves={gameStats.count}

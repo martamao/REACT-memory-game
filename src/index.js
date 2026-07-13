@@ -11,6 +11,9 @@ const getConexion = async () => {
     user: process.env.MYSQL_USER,
     password: process.env.MYSQL_PASSWORD,
     database: process.env.MYSQL_SCHEMA,
+    ssl: {
+      rejectUnauthorized: true,
+    },
   };
 
   const conexion = await mysql.createConnection(datosConexion);
@@ -59,7 +62,7 @@ server.get("/api/memoryboard", async (req, res) => {
     const query = `
       SELECT player_name, game_moves, game_time, difficulty
       FROM game_ranking
-      ORDER BY difficulty, game_moves ASC;
+      ORDER BY difficulty, game_moves ASC, game_time ASC;
     `;
 
     const [results] = await conexion.query(query);
@@ -170,4 +173,4 @@ server.use((req, res) => {
 });
 
 //STATIC
-server.use(express.static("./FRONTEND"));
+server.use(express.static("./docs"));
