@@ -47,8 +47,13 @@ export default function Ranking({
   }, [difficulty?.name]);
 
   const formatTime = (seconds) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
+    const totalSeconds = Number(seconds);
+
+    if (!Number.isFinite(totalSeconds)) return "--:--";
+
+    const mins = Math.floor(totalSeconds / 60);
+    const secs = totalSeconds % 60;
+
     return `${String(mins).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
   };
 
